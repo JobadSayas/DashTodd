@@ -1,4 +1,4 @@
-// Versión 1.5
+// Versión 1.6
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -128,7 +128,7 @@ function actualizarCalendario() {
     });
 
     // Marcar el día actual
-    diasDeLaSemana[hoy.getDay()].classList.add('bg-green-200'); // Cambiar el fondo del día actual a verde
+    diasDeLaSemana[hoy.getDay()].classList.add('text-red-500'); // Cambiar el fondo del día actual a verde
 }
 
 // Llamar a las funciones de actualización cada segundo
@@ -136,3 +136,8 @@ setInterval(() => {
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
     actualizarCalendario(); // Actualizar el calendario
 }, 1000);
+
+// Recargar la página cada 60 minutos (3600000 milisegundos)
+setInterval(() => {
+    location.reload(); // Recargar la página
+}, 3600000);

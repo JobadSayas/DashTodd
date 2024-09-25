@@ -1,4 +1,4 @@
-// Versión 1.0
+// Versión 1.5
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -64,43 +64,43 @@ function actualizarHoraYSemaforo() {
     if (horas === 6 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
     } else if (horas === 7 && minutos === 0) {
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
     } else if (horas === 12 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
-    } else if (horas === 13 && minutos === 0) {
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas === 13) { // Cambiar a rojo de 1:00 PM a 1:59 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
         contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } else if (horas === 14 && minutos === 0) {
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
     } else if (horas === 19 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
     } else if (horas === 20 && minutos === 0) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
         contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } 
     // Controlar el estado general del semáforo entre las 8 PM y las 6 AM
     else if (horas >= 20 || horas < 6) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Mantener el semáforo en rojo entre 8 PM y 6 AM
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
         contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } 
     // Si no se cumple ninguna de las condiciones específicas de tiempo, el semáforo permanece en su estado por defecto
     else {
         imagenSemaforo.src = 'img/verde.jpg'; // Valor por defecto, ajustable según preferencia
         contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
     }
 }
 
@@ -118,30 +118,21 @@ function actualizarCalendario() {
         document.getElementById('miercoles'),
         document.getElementById('jueves'),
         document.getElementById('viernes'),
-        document.getElementById('sabado')
+        document.getElementById('sabado'),
     ];
 
-    // Cargar los días de la semana
+    // Actualizar el contenido de los días de la semana
     diasDeLaSemana.forEach((dia, index) => {
-        const numeroDia = primerDiaDeLaSemana + index; // Calcular el número del día
-        dia.textContent = numeroDia; // Establecer el número en el elemento
-
-        // Resaltar el día actual
-        if (numeroDia === diaActual) {
-            dia.classList.add('text-red-500'); // Resaltar en rojo
-        } else {
-            dia.classList.remove('text-red-500'); // Quitar el rojo
-            dia.classList.add('text-black'); // Asegurarse de que los otros días sean negros
-        }
+        dia.innerHTML = primerDiaDeLaSemana + index; // Mostrar el número del día
+        dia.classList.remove('bg-red-300', 'bg-yellow-200', 'bg-green-200'); // Limpiar clases de fondo
     });
+
+    // Marcar el día actual
+    diasDeLaSemana[hoy.getDay()].classList.add('bg-green-200'); // Cambiar el fondo del día actual a verde
 }
 
-// Llamar a las funciones cada minuto para actualizar la hora, el semáforo y el calendario
+// Llamar a las funciones de actualización cada segundo
 setInterval(() => {
-    actualizarHoraYSemaforo();
-    actualizarCalendario();
-}, 60000);
-
-// Llamar a las funciones una vez para mostrar la hora y el calendario inmediatamente al cargar
-actualizarHoraYSemaforo();
-actualizarCalendario();
+    actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
+    actualizarCalendario(); // Actualizar el calendario
+}, 1000);

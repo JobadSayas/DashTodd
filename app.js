@@ -1,4 +1,4 @@
-// Versión 0.16
+// Versión 0.18
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -15,70 +15,92 @@ function actualizarHoraYSemaforo() {
     const mostrarHora = document.getElementById('mostrarHora');
     mostrarHora.innerHTML = `${formatoHoras}:${formatoMinutos} <small>${ampm}</small>`;
 
-    // Cambiar la imagen según la hora en el módulo de la hora
+    // Cambiar la imagen y el fondo del módulo de la hora
     const imagenHora = document.getElementById('imagenHora'); // Seleccionar la imagen del módulo hora
+    const contenedorHora = document.getElementById('hora'); // Contenedor padre del módulo de la hora
+    
     if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
+        contenedorHora.classList.add('bg-indigo-900');
+        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 7 && horas < 10) { // 7:00 AM - 9:59 AM
         imagenHora.src = 'img/amanecer.jpg';
+        contenedorHora.classList.add('bg-blue-500');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 10 && horas < 13) { // 10:00 AM - 12:59 PM
         imagenHora.src = 'img/manana.jpg';
+        contenedorHora.classList.add('bg-sky-300');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 13 && horas < 16) { // 1:00 PM - 3:59 PM
         imagenHora.src = 'img/medio-dia.jpg';
+        contenedorHora.classList.add('bg-sky-300');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 16 && horas < 19) { // 4:00 PM - 6:59 PM
         imagenHora.src = 'img/tarde.jpg';
+        contenedorHora.classList.add('bg-sky-300');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 19 && horas < 20) { // 7:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
+        contenedorHora.classList.add('bg-orange-300');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-sky-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else { // 8:00 PM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
+        contenedorHora.classList.add('bg-indigo-900');
+        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     }
 
     // Cambiar la imagen del semáforo según la hora
     const imagenSemaforo = document.getElementById('semaforoImg'); // Seleccionar la imagen del semáforo
-    const contenedorSemaforo = document.getElementById('semaforo'); // Seleccionar el contenedor del semáforo
+    const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
-    // Limpiar clases de fondo previas
-    contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200', 'bg-red-200');
-
     // Reglas específicas de horas exactas para el semáforo
     if (horas === 6 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar fondo a amarillo
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
     } else if (horas === 7 && minutos === 0) {
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar fondo a verde
+        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
     } else if (horas === 12 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar fondo a amarillo
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
     } else if (horas === 13 && minutos === 0) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } else if (horas === 14 && minutos === 0) {
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar fondo a verde
+        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
     } else if (horas === 19 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar fondo a amarillo
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-200'); // Eliminar otros colores
     } else if (horas === 20 && minutos === 0) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } 
     // Controlar el estado general del semáforo entre las 8 PM y las 6 AM
     else if (horas >= 20 || horas < 6) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Mantener el semáforo en rojo entre 8 PM y 6 AM
-        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar fondo a rojo
+        contenedorSemaforo.classList.add('bg-red-200'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     } 
     // Si no se cumple ninguna de las condiciones específicas de tiempo, el semáforo permanece en su estado por defecto
     else {
         imagenSemaforo.src = 'img/verde.jpg'; // Valor por defecto, ajustable según preferencia
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar fondo a verde
+        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-200'); // Eliminar otros colores
     }
 }
 

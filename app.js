@@ -1,4 +1,4 @@
-// Versión 0.9
+// Versión 0.9 Corregida
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -15,19 +15,21 @@ function actualizarHoraYSemaforo() {
     const mostrarHora = document.getElementById('mostrarHora');
     mostrarHora.innerHTML = `${formatoHoras}:${formatoMinutos} <small>${ampm}</small>`;
 
-    // Cambiar la imagen según la hora
+    // Cambiar la imagen según la hora en el módulo de la hora
     const imagenHora = document.getElementById('imagenHora'); // Seleccionar la imagen del módulo hora
-    if (horas === 7 && minutos === 0) {
+    if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
+        imagenHora.src = 'img/crepusculo.jpg';
+    } else if (horas >= 7 && horas < 10) { // 7:00 AM - 9:59 AM
         imagenHora.src = 'img/amanecer.jpg';
-    } else if (horas === 10 && minutos === 0) {
+    } else if (horas >= 10 && horas < 13) { // 10:00 AM - 12:59 PM
         imagenHora.src = 'img/manana.jpg';
-    } else if (horas === 13 && minutos === 0) {
-        imagenHora.src = 'img/mediodia.jpg';
-    } else if (horas === 16 && minutos === 0) {
+    } else if (horas >= 13 && horas < 16) { // 1:00 PM - 3:59 PM
+        imagenHora.src = 'img/medio-dia.jpg';
+    } else if (horas >= 16 && horas < 19) { // 4:00 PM - 6:59 PM
         imagenHora.src = 'img/tarde.jpg';
-    } else if (horas === 18 && minutos === 0) {
+    } else if (horas >= 19 && horas < 20) { // 7:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
-    } else if (horas >= 20) {
+    } else { // 8:00 PM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
     }
 
@@ -47,6 +49,8 @@ function actualizarHoraYSemaforo() {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
     } else if (horas === 20 && minutos === 0) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
+    } else {
+        imagenSemaforo.src = 'img/noche.jpg'; // Imagen por defecto si no hay coincidencia de hora
     }
 
     // Controlar el estado del semáforo entre las 8 PM y las 6 AM

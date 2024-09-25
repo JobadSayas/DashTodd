@@ -2,13 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>DashTodd</title>
     <meta name="description" content="Dashboard interactivo para niños">
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Puedes incluir aquí cualquier hoja de estilo -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,24 +18,25 @@
             margin: 0;
             background-color: #f0f0f0;
         }
-        h1 {
-            color: #333;
-        }
     </style>
 </head>
-<body class="flex flex-col bg-white p-3 gap-3">
+<body class="flex flex-col bg-gray-300 p-3 gap-3">
 
-    <div id="semaforo" class="relative rounded-lg w-full h-[120px] flex bg-center bg-no-repeat bg-contain flex-shrink-0"></div>
-        <img src="img/">
+    <!-- Semáforo -->
+    <div id="semaforo" class="relative rounded-lg w-full h-[120px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
+        <img src="img/noche.jpg" id="semaforoImg" alt="Semáforo" class="h-full">
     </div>
 
-    <div id="hora" class="rounded-lg bg-white w-full h-[120px] flex-shrink-0">
-        <img src="img/">
-        <div id="mostrarHora" class="text-3xl">12:00 <small>PM</small></div>
+    <!-- Módulo de hora -->
+    <div id="hora" class="relative rounded-lg bg-white w-full h-[120px] shadow-md flex items-center justify-center">
+        <img src="img/noche.jpg" id="imagenHora" alt="Imagen de la hora" class="absolute top-0 left-0 h-full object-cover">
+        <div id="mostrarHora" class="text-3xl relative z-10">12:00 <small>PM</small></div>
     </div>
 
-    <div id="clima" class="rounded-lg bg-white w-full h-[120px] flex-shrink-0"></div>
+    <!-- Módulo de clima -->
+    <div id="clima" class="rounded-lg bg-white w-full h-[120px] shadow-md"></div>
     
+    <!-- Calendario -->
     <div id="calendario" class="relative rounded-lg w-full h-[120px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/calendario.jpg');">
         <div class="flex gap-[14px] absolute top-[82px] left-[53px]">
             <div id="domingo" class="text-xl"></div>
@@ -48,7 +48,7 @@
             <div id="sabado" class="text-xl"></div>
         </div>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
 </html>

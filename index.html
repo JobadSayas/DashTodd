@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body class="flex flex-col bg-gray-300 p-3 gap-3">
+<body class="flex flex-col bg-white p-3 gap-3">
 
     <!-- Semáforo -->
     <div id="semaforo" class="relative rounded-lg w-full h-[120px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
@@ -28,25 +28,26 @@
     </div>
 
     <!-- Módulo de hora -->
-    <div id="hora" class="relative rounded-lg bg-white w-full h-[120px] shadow-md flex items-center justify-center overflow-hidden">
+    <div id="hora" class="relative rounded-lg bg-white w-full h-[120px] flex items-center justify-center overflow-hidden">
         <img src="img/noche.jpg" id="imagenHora" alt="Imagen de la hora" class="absolute inset-0 w-auto h-full mx-auto">
         <div id="mostrarHora" class="absolute bottom-[-14px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl z-10">12:00 <small>PM</small></div>
     </div>
 
 
     <!-- Módulo de clima -->
-    <div id="clima" class="rounded-lg bg-white w-full h-[120px] shadow-md"></div>
+    <div id="clima" class="relative rounded-lg w-full h-[120px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/clima-lock.jpg'); background-color: #f5ebff;">
+    </div>
     
     <!-- Calendario -->
     <div id="calendario" class="relative rounded-lg w-full h-[120px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/calendario.jpg');">
         <div class="flex gap-[14px] absolute top-[82px] left-1/2 transform -translate-x-1/2 z-10">
-            <div id="domingo" class="text-xl"></div>
-            <div id="lunes" class="text-xl"></div>
-            <div id="martes" class="text-xl"></div>
-            <div id="miercoles" class="text-xl"></div>
-            <div id="jueves" class="text-xl"></div>
-            <div id="viernes" class="text-xl"></div>
-            <div id="sabado" class="text-xl"></div>
+            <div id="domingo" class="text-xl font-bold"></div>
+            <div id="lunes" class="text-xl font-bold"></div>
+            <div id="martes" class="text-xl font-bold"></div>
+            <div id="miercoles" class="text-xl font-bold"></div>
+            <div id="jueves" class="text-xl font-bold"></div>
+            <div id="viernes" class="text-xl font-bold"></div>
+            <div id="sabado" class="text-xl font-bold"></div>
         </div>
     </div>
 

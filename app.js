@@ -1,4 +1,4 @@
-// Versión 0.10
+// Versión 0.11
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -42,6 +42,8 @@ function actualizarHoraYSemaforo() {
 
     // Cambiar la imagen del semáforo según la hora
     const imagenSemaforo = document.getElementById('semaforoImg'); // Seleccionar la imagen del semáforo
+
+    // Reglas específicas de horas exactas para el semáforo
     if (horas === 6 && minutos === 0) {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
     } else if (horas === 7 && minutos === 0) {
@@ -56,13 +58,14 @@ function actualizarHoraYSemaforo() {
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
     } else if (horas === 20 && minutos === 0) {
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-    } else {
-        imagenSemaforo.src = 'img/noche.jpg'; // Imagen por defecto si no hay coincidencia de hora
-    }
-
-    // Controlar el estado del semáforo entre las 8 PM y las 6 AM
-    if (horas >= 20 || horas < 6) {
-        imagenSemaforo.src = 'img/rojo.jpg'; // Mantener el semáforo en rojo
+    } 
+    // Controlar el estado general del semáforo entre las 8 PM y las 6 AM
+    else if (horas >= 20 || horas < 6) {
+        imagenSemaforo.src = 'img/rojo.jpg'; // Mantener el semáforo en rojo entre 8 PM y 6 AM
+    } 
+    // Si no se cumple ninguna de las condiciones específicas de tiempo, el semáforo permanece en su estado por defecto
+    else {
+        imagenSemaforo.src = 'img/verde.jpg'; // Valor por defecto, ajustable según preferencia
     }
 }
 

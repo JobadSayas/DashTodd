@@ -1,4 +1,4 @@
-// Versión 1.6
+// Versión 1.7
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -13,7 +13,7 @@ function actualizarHoraYSemaforo() {
 
     // Actualizar el contenido del elemento mostrarHora
     const mostrarHora = document.getElementById('mostrarHora');
-    mostrarHora.innerHTML = `${formatoHoras}:${formatoMinutos} <small>${ampm}</small>`;
+    mostrarHora.innerHTML = `${formatoHoras}:${formatoMinutos} <small style="position: relative; top:-2px">${ampm}</small>`;
 
     // Cambiar la imagen y el fondo del módulo de la hora
     const imagenHora = document.getElementById('imagenHora'); // Seleccionar la imagen del módulo hora

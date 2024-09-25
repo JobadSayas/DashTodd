@@ -1,4 +1,4 @@
-// Versión 0.18
+// Versión 1.0
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {

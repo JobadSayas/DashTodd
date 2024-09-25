@@ -16,31 +16,30 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
         }
     </style>
 </head>
-<body class="flex flex-col bg-white p-3 gap-3">
+<body class="flex flex-col bg-white p-3 gap-3 justify-start">
 
     <!-- Semáforo -->
-    <div id="semaforo" class="relative rounded-lg w-full h-[120px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
+    <div id="semaforo" class="relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
         <img src="" id="semaforoImg" alt="Semáforo" class="h-full w-auto mx-auto my-auto">
     </div>
 
     <!-- Módulo de hora -->
-    <div id="hora" class="relative rounded-lg bg-white w-full h-[120px] flex items-center justify-center overflow-hidden">
+    <div id="hora" class="relative rounded-lg bg-white w-full h-[113px] flex items-center justify-center overflow-hidden">
         <img src="" id="imagenHora" alt="Imagen de la hora" class="absolute inset-0 w-auto h-full mx-auto">
         <div id="mostrarHora" class="absolute bottom-[-14px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl z-10">12:00 <small>PM</small></div>
     </div>
 
 
     <!-- Módulo de clima -->
-    <div id="clima" class="relative rounded-lg w-full h-[120px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/clima-lock.jpg'); background-color: #f5ebff;">
+    <div id="clima" class="relative rounded-lg w-full h-[113px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/clima-lock.jpg'); background-color: #f5ebff;">
     </div>
     
     <!-- Calendario -->
-    <div id="calendario" class="relative rounded-lg w-full h-[120px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/calendario.jpg');">
-        <div class="flex gap-[14px] absolute top-[82px] left-1/2 transform -translate-x-1/2 z-10">
+    <div id="calendario" class="relative rounded-lg w-full h-[113px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0" style="background-image: url('img/calendario.jpg');">
+        <div class="flex gap-[12px] absolute top-[82px] left-1/2 transform -translate-x-1/2 z-10">
             <div id="domingo" class="text-xl font-bold"></div>
             <div id="lunes" class="text-xl font-bold"></div>
             <div id="martes" class="text-xl font-bold"></div>

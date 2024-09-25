@@ -1,4 +1,4 @@
-// Versión 0.9 Corregida
+// Versión 0.10
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -19,18 +19,25 @@ function actualizarHoraYSemaforo() {
     const imagenHora = document.getElementById('imagenHora'); // Seleccionar la imagen del módulo hora
     if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
+        mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 7 && horas < 10) { // 7:00 AM - 9:59 AM
         imagenHora.src = 'img/amanecer.jpg';
+        mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 10 && horas < 13) { // 10:00 AM - 12:59 PM
         imagenHora.src = 'img/manana.jpg';
+        mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 13 && horas < 16) { // 1:00 PM - 3:59 PM
         imagenHora.src = 'img/medio-dia.jpg';
+        mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 16 && horas < 19) { // 4:00 PM - 6:59 PM
         imagenHora.src = 'img/tarde.jpg';
+        mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 19 && horas < 20) { // 7:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
+        mostrarHora.style.color = 'black'; // Texto negro
     } else { // 8:00 PM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
+        mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     }
 
     // Cambiar la imagen del semáforo según la hora

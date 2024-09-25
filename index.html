@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DashTodd</title>
+    <meta name="description" content="Dashboard interactivo para niños">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="flex flex-col bg-gray-300 p-3 gap-3">
+
+    <!-- Semáforo -->
+    <div id="semaforo" class="relative rounded-lg w-full h-[120px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
+        <img src="img/" id="semaforoImg" alt="Semáforo" class="w-full h-full">
+    </div>
+
+    <!-- Módulo de hora -->
+    <div id="hora" class="rounded-lg bg-white w-full h-[200px] shadow-md flex items-center justify-center">
+        <img src="img/" alt="Imagen de la hora" class="absolute top-0 left-0 w-full h-full object-cover opacity-50" id="imagenHora">
+        <div id="mostrarHora" class="text-3xl relative z-10">12:00 <small>PM</small></div>
+    </div>
+
+    <!-- Módulo de clima -->
+    <div id="clima" class="rounded-lg bg-white w-full h-[200px] shadow-md"></div>
+    
+    <!-- Calendario -->
+    <div id="calendario" class="rounded-lg w-full h-[200px] shadow-md flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200" style="background-image: url('img/calendario.jpg');">
+        <div id="domingo" class="text-2xl"></div>
+        <div id="lunes" class="text-2xl"></div>
+        <div id="martes" class="text-2xl"></div>
+        <div id="miercoles" class="text-2xl"></div>
+        <div id="jueves" class="text-2xl"></div>
+        <div id="viernes" class="text-2xl"></div>
+        <div id="sabado" class="text-2xl"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-// Versión 1.9
+// Versión 1.15
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -87,7 +87,6 @@ function actualizarHoraYSemaforo() {
 // Función para actualizar el calendario
 function actualizarCalendario() {
     const hoy = new Date(); // Obtener la fecha actual
-    const diaActual = hoy.getDate(); // Obtener el número del día
     const primerDiaDeLaSemana = hoy.getDate() - hoy.getDay(); // Obtener el primer día de la semana (domingo)
 
     // Obtener los elementos de los días de la semana
@@ -111,10 +110,32 @@ function actualizarCalendario() {
     diasDeLaSemana[hoy.getDay()].classList.add('text-red-500'); // Cambiar el fondo del día actual a verde
 }
 
+// Función para obtener y mostrar la temperatura actual
+async function mostrarTemperatura() {
+    const apiKey = 'MJKZY85NQXXSP4NGC69T62JS9';
+    const ciudad = 'Bentonville,AR';
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${ciudad}?key=${apiKey}`;
+
+    try {
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
+
+        // Redondear la temperatura
+        const temperatura = Math.round(datos.currentConditions.temp);
+        
+        // Actualizar el span del clima
+        const climaSpan = document.getElementById('clima').getElementsByTagName('span')[0];
+        climaSpan.innerHTML = temperatura; // Mostrar solo la temperatura redondeada
+    } catch (error) {
+        console.error('Error al obtener la temperatura:', error);
+    }
+}
+
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
     actualizarCalendario(); // Actualizar el calendario
+    mostrarTemperatura(); // Actualizar la temperatura
 }, 1000);
 
 // Recargar la página cada 60 minutos (3600000 milisegundos)

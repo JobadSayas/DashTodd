@@ -1,4 +1,4 @@
-// Versión 1.15
+// Versión 1.19
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -19,27 +19,37 @@ function actualizarHoraYSemaforo() {
     const imagenHora = document.getElementById('imagenHora'); // Seleccionar la imagen del módulo hora
     const contenedorHora = document.getElementById('hora'); // Contenedor padre del módulo de la hora
     
-    if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
+    if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
+        imagenHora.src = 'img/noche.jpg';
+        contenedorHora.classList.add('bg-indigo-900');
+        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
+        mostrarHora.style.color = 'white'; // Cambiar a texto blanco
+    } else if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
         contenedorHora.classList.add('bg-indigo-900');
         contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
-    } else if (horas >= 7 && horas < 10) { // 7:00 AM - 9:59 AM
+    } else if (horas >= 7 && horas < 8) { // 7:00 AM - 7:59 AM
         imagenHora.src = 'img/amanecer.jpg';
         contenedorHora.classList.add('bg-blue-500');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 10 && horas < 13) { // 10:00 AM - 12:59 PM
+    } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
         imagenHora.src = 'img/manana.jpg';
         contenedorHora.classList.add('bg-sky-300');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 13 && horas < 16) { // 1:00 PM - 3:59 PM
+    } else if (horas >= 12 && horas < 13) { // 12:00 PM - 12:59 PM
         imagenHora.src = 'img/medio-dia.jpg';
         contenedorHora.classList.add('bg-sky-300');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 16 && horas < 19) { // 4:00 PM - 6:59 PM
+    } else if (horas >= 13 && horas < 14) { // 1:00 PM - 1:59 PM
+        imagenHora.src = 'img/medio-dia.jpg';
+        contenedorHora.classList.add('bg-sky-300');
+        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
+        mostrarHora.style.color = 'black'; // Texto negro
+    } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
         imagenHora.src = 'img/tarde.jpg';
         contenedorHora.classList.add('bg-sky-300');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
@@ -49,7 +59,7 @@ function actualizarHoraYSemaforo() {
         contenedorHora.classList.add('bg-orange-300');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-sky-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
-    } else { // 8:00 PM - 5:59 AM
+    } else { // 8:00 PM - 11:59 PM
         imagenHora.src = 'img/noche.jpg';
         contenedorHora.classList.add('bg-indigo-900');
         contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
@@ -61,26 +71,42 @@ function actualizarHoraYSemaforo() {
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if (horas === 6 || (horas === 7 && minutos === 0)) {
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
-    } else if (horas === 7 || (horas === 13 && minutos === 0)) {
-        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
-    } else if (horas === 12 || (horas === 19 && minutos === 0)) {
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
-    } else if (horas >= 20 || horas < 6) { // Mantener el semáforo en rojo entre 8 PM y 6 AM
+    if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
         contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
         contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
-    } else {
-        imagenSemaforo.src = 'img/verde.jpg'; // Valor por defecto, ajustable según preferencia
+    } else if (horas === 6) { // 6:00 AM
+        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas === 7) { // 7:00 AM
+        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
         contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas === 12) { // 12:00 PM
+        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas === 13) { // 1:00 PM
+        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
+        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
+    } else if (horas === 19) { // 7:00 PM
+        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
+        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
+        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
+        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+    } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
+        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
+        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+    } else { // 8:00 PM - 11:59 PM
+        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
+        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
     }
 }
 
@@ -135,10 +161,14 @@ async function mostrarTemperatura() {
 setInterval(() => {
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
     actualizarCalendario(); // Actualizar el calendario
-    mostrarTemperatura(); // Actualizar la temperatura
-}, 1000);
+}, 1000); //cada segundo
 
-// Recargar la página cada 60 minutos (3600000 milisegundos)
+// Recargar api
+setInterval(() => {
+    // mostrarTemperatura(); // Actualizar la temperatura
+}, 1800000); // cada 30 mins
+
+// Recargar la página
 setInterval(() => {
     location.reload(); // Recargar la página
-}, 3600000);
+}, 3600000); // cada 60 mins

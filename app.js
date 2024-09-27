@@ -1,4 +1,4 @@
-const version = "2.1"; // Version variable
+const version = "2.2"; // Version variable
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -183,18 +183,33 @@ function actualizarTemperatura() {
     spanClima.style.left = `${leftValue}px`;
 }
 
+//Funcion para mostrar la coritna
+function mostrarCortina() {
+    const cortinaDiv = document.getElementById('cortina'); // Seleccionar el div con id 'cortina'
+    const ahora = new Date(); // Obtener la hora actual
+    const horas = ahora.getHours(); // Obtener las horas
+
+    // Mostrar el div #cortina solo entre las 10:00 PM y las 6:00 AM
+    if (horas >= 22 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
+        cortinaDiv.style.display = 'block'; // Mostrar el div
+    } else {
+        cortinaDiv.style.display = 'none'; // Ocultar el div
+    }
+}
+
 
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
     actualizarCalendario(); // Actualizar el calendario
+    mostrarCortina() // Mostrar coritna
 }, 1000); //cada segundo
 
 // Recargar api
 setInterval(() => {
-    // mostrarTemperatura(); // Actualizar la temperatura
+    mostrarTemperatura(); // Actualizar la temperatura
 }, 1800000); // cada 30 mins
-// mostrarTemperatura();
+mostrarTemperatura();
 
 // Recargar la página
 setInterval(() => {

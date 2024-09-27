@@ -1,4 +1,4 @@
-// Versión 1.19
+// Versión 2.0
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
@@ -56,7 +56,7 @@ function actualizarHoraYSemaforo() {
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 19 && horas < 20) { // 7:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
-        contenedorHora.classList.add('bg-orange-300');
+        contenedorHora.classList.add('bg-orange-400');
         contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-sky-300'); // Eliminar otras clases
         mostrarHora.style.color = 'black'; // Texto negro
     } else { // 8:00 PM - 11:59 PM
@@ -73,40 +73,40 @@ function actualizarHoraYSemaforo() {
     // Cambios en el semáforo basados en rangos de hora
     if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
     } else if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
     } else if (horas === 7) { // 7:00 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
     } else if (horas === 12) { // 12:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
     } else if (horas === 13) { // 1:00 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
     } else if (horas === 19) { // 7:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-200'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
     } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
     } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-200'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-200', 'bg-red-300'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
+        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
     } else { // 8:00 PM - 11:59 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-300'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-200', 'bg-yellow-200'); // Eliminar otros colores
+        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
+        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
     }
 }
 
@@ -129,13 +129,14 @@ function actualizarCalendario() {
     // Actualizar el contenido de los días de la semana
     diasDeLaSemana.forEach((dia, index) => {
         dia.innerHTML = primerDiaDeLaSemana + index; // Mostrar el número del día
-        dia.classList.remove('bg-red-300', 'bg-yellow-200', 'bg-green-200'); // Limpiar clases de fondo
+        dia.classList.remove('bg-red-400', 'bg-yellow-400', 'bg-green-400'); // Limpiar clases de fondo
     });
 
     // Marcar el día actual
     diasDeLaSemana[hoy.getDay()].classList.add('text-red-500'); // Cambiar el fondo del día actual a verde
 }
 
+let temperatura = 0;
 // Función para obtener y mostrar la temperatura actual
 async function mostrarTemperatura() {
     const apiKey = 'MJKZY85NQXXSP4NGC69T62JS9';
@@ -147,15 +148,38 @@ async function mostrarTemperatura() {
         const datos = await respuesta.json();
 
         // Redondear la temperatura
-        const temperatura = Math.round(datos.currentConditions.temp);
+        let temperatura = Math.round(datos.currentConditions.temp);
+        
+        // Limitar la temperatura entre 0 y 100
+        if (temperatura < 0) {
+            temperatura = 0;
+        } else if (temperatura > 100) {
+            temperatura = 100;
+        }
         
         // Actualizar el span del clima
         const climaSpan = document.getElementById('clima').getElementsByTagName('span')[0];
         climaSpan.innerHTML = temperatura; // Mostrar solo la temperatura redondeada
+
+        // Actualizar la posición del termómetro
+        actualizarTemperatura(); // Asegúrate de que esta función esté definida con la lógica necesaria
     } catch (error) {
         console.error('Error al obtener la temperatura:', error);
     }
 }
+
+
+// Función para actualizar la posición del span según la temperatura
+function actualizarTemperatura() {
+    const spanClima = document.getElementById('clima').getElementsByTagName('span')[0];
+    
+    // Calcular el valor de left según la escala del termómetro
+    const leftValue = (temperatura / 100) * 220; // Convertir la temperatura a la escala del termómetro
+    
+    // Actualizar la propiedad left del span
+    spanClima.style.left = `${leftValue}px`;
+}
+
 
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
@@ -167,6 +191,7 @@ setInterval(() => {
 setInterval(() => {
     // mostrarTemperatura(); // Actualizar la temperatura
 }, 1800000); // cada 30 mins
+// mostrarTemperatura();
 
 // Recargar la página
 setInterval(() => {

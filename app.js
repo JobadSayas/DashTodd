@@ -1,4 +1,4 @@
-const version = "2.2"; // Version variable
+const version = "2.3";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -151,7 +151,7 @@ async function mostrarTemperatura() {
         const datos = await respuesta.json();
 
         // Redondear la temperatura
-        let temperatura = Math.round(datos.currentConditions.temp);
+        temperatura = Math.round(datos.currentConditions.temp); // Actualiza la variable global
         
         // Limitar la temperatura entre 0 y 100
         if (temperatura < 0) {
@@ -165,7 +165,7 @@ async function mostrarTemperatura() {
         climaSpan.innerHTML = temperatura; // Mostrar solo la temperatura redondeada
 
         // Actualizar la posición del termómetro
-        actualizarTemperatura(); // Asegúrate de que esta función esté definida con la lógica necesaria
+        actualizarTemperatura(); // Llamar a la función para actualizar la posición
     } catch (error) {
         console.error('Error al obtener la temperatura:', error);
     }

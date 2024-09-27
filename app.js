@@ -1,4 +1,7 @@
-// Versión 2.0
+const version = "2.1"; // Version variable
+const versionDiv = document.getElementById('version'); // Select the div with id 'version'
+versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
+
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {

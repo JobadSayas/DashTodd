@@ -1,4 +1,4 @@
-const version = "2.5";
+const version = "2.6";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -160,7 +160,7 @@ async function mostrarTemperatura() {
         const datos = await respuesta.json();
 
         // Redondear la temperatura
-        temperatura = Math.round(datos.currentConditions.temp); // Actualiza la variable global
+        temperatura = Math.round(datos.currentConditions.feelslike); // Actualiza la variable global
         
         // Limitar la temperatura entre 0 y 100
         if (temperatura < 0) {

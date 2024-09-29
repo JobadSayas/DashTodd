@@ -1,4 +1,4 @@
-const version = "2.4";
+const version = "2.5";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -130,10 +130,19 @@ function actualizarCalendario() {
     ];
 
     // Actualizar el contenido de los días de la semana
+    // Nuevo código para manejar los días del calendario correctamente
+    const ultimoDiaDelMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate(); // Último día del mes actual
+    let diaActual = primerDiaDeLaSemana;
+
     diasDeLaSemana.forEach((dia, index) => {
-        dia.innerHTML = primerDiaDeLaSemana + index; // Mostrar el número del día
+        if (diaActual > ultimoDiaDelMes) {
+            diaActual = 1; // Empezar con el día 1 del siguiente mes
+        }
+        dia.innerHTML = diaActual; // Mostrar el número del día
         dia.classList.remove('bg-red-400', 'bg-yellow-400', 'bg-green-400'); // Limpiar clases de fondo
+        diaActual++; // Incrementar al siguiente día
     });
+
 
     // Marcar el día actual
     diasDeLaSemana[hoy.getDay()].classList.add('text-red-500'); // Cambiar el fondo del día actual a verde
@@ -206,10 +215,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // // Recargar api
-// setInterval(() => {
-//     mostrarTemperatura(); // Actualizar la temperatura
-// }, 1800000); // cada 30 mins
-// mostrarTemperatura();
+setInterval(() => {
+    mostrarTemperatura(); // Actualizar la temperatura
+}, 1800000); // cada 30 mins
+mostrarTemperatura();
 
 // Recargar la página
 setInterval(() => {

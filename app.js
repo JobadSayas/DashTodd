@@ -1,4 +1,4 @@
-const version = "2.6";
+const version = "2.7";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -221,6 +221,6 @@ setInterval(() => {
 mostrarTemperatura();
 
 // Recargar la página
-setInterval(() => {
-    location.reload(); // Recargar la página
-}, 3600000); // cada 60 mins
+// setInterval(() => {
+//     location.reload(); // Recargar la página
+// }, 3600000); // cada 60 mins

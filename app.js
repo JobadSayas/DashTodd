@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
       return {
-        version: "3.0",
+        version: "3.1",
         temperature: 0,
         currentTime: new Date(),
         weekDays: Array(7).fill(0),
@@ -67,15 +67,22 @@ const app = Vue.createApp({
     methods: {
       actualizarCalendario() {
         const currentDate = new Date();
-        const firstDayOfWeek = currentDate.getDate() - currentDate.getDay(); // Primer día de la semana
-        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate(); // Último día del mes
-        let currentDay = firstDayOfWeek;
-  
-        this.weekDays = this.weekDays.map((_, index) => {
-          if (currentDay > lastDayOfMonth) currentDay = 1;
-          return currentDay++;
-        });
-      },
+        const firstDayOfWeek = new Date(currentDate);
+        firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay()); // Primer día de la semana
+    
+        // Get the correct month for the first day of the week
+        const month = firstDayOfWeek.getMonth();
+        const year = firstDayOfWeek.getFullYear();
+    
+        // Array to hold the days of the week
+        this.weekDays = [];
+    
+        // Loop to fill in the days of the week
+        for (let i = 0; i < 7; i++) {
+            const day = new Date(year, month, firstDayOfWeek.getDate() + i);
+            this.weekDays.push(day.getDate()); // Get the day number
+        }
+      },                 
       async mostrarTemperatura() {
         const apiKey = 'MJKZY85NQXXSP4NGC69T62JS9';
         const ciudad = 'Bentonville,AR';

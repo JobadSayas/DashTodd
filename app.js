@@ -1,4 +1,4 @@
-const version = "2.8";
+const version = "2.9";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -24,45 +24,37 @@ function actualizarHoraYSemaforo() {
     
     if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
-        contenedorHora.classList.add('bg-indigo-900');
-        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
-        contenedorHora.classList.add('bg-indigo-900');
-        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 7 && horas < 9) { // 7:00 AM - 8:59 AM
         imagenHora.src = 'img/amanecer.jpg';
-        contenedorHora.classList.add('bg-blue-500');
-        contenedorHora.classList.remove('bg-indigo-900', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#3b82f6'; // bg-blue-500
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 9 && horas < 12) { // 9:00 AM - 11:59 AM
         imagenHora.src = 'img/manana.jpg';
-        contenedorHora.classList.add('bg-sky-300');
-        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 12 && horas < 15) { // 12:00 PM - 2:59 PM
         imagenHora.src = 'img/medio-dia.jpg';
-        contenedorHora.classList.add('bg-sky-300');
-        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 15 && horas < 18) { // 3:00 PM - 5:59 PM
         imagenHora.src = 'img/tarde.jpg';
-        contenedorHora.classList.add('bg-sky-300');
-        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
     } else if (horas >= 18 && horas < 20) { // 6:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
-        contenedorHora.classList.add('bg-orange-400');
-        contenedorHora.classList.remove('bg-indigo-900', 'bg-blue-500', 'bg-sky-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#fb923c'; // bg-orange-300
         mostrarHora.style.color = 'black'; // Texto negro
     } else { // 8:00 PM - 9:59 PM
         imagenHora.src = 'img/noche.jpg';
-        contenedorHora.classList.add('bg-indigo-900');
-        contenedorHora.classList.remove('bg-blue-500', 'bg-sky-300', 'bg-orange-300'); // Eliminar otras clases
+        contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
-    }
+    }    
     
 
     // Cambiar la imagen del semáforo según la hora
@@ -72,41 +64,33 @@ function actualizarHoraYSemaforo() {
     // Cambios en el semáforo basados en rangos de hora
     if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
     } else if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
     } else if (horas === 7) { // 7:00 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
     } else if (horas === 12) { // 12:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
     } else if (horas === 13) { // 1:00 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
     } else if (horas === 19) { // 7:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.classList.add('bg-yellow-400'); // Cambiar el fondo a amarillo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
     } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
     } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.classList.add('bg-green-400'); // Cambiar el fondo a verde
-        contenedorSemaforo.classList.remove('bg-yellow-400', 'bg-red-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
     } else { // 8:00 PM - 11:59 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.classList.add('bg-red-400'); // Cambiar el fondo a rojo
-        contenedorSemaforo.classList.remove('bg-green-400', 'bg-yellow-400'); // Eliminar otros colores
+        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
     }
+
 }
 
 // Función para actualizar el calendario
@@ -148,8 +132,8 @@ function actualizarCalendario() {
     let mesActual = primerDiaDeLaSemana.getMonth(); // Mes actual de la semana
     let anioActual = primerDiaDeLaSemana.getFullYear(); // Año actual de la semana
 
-    diasDeLaSemana.forEach((elementoDia) => {
-        elementoDia.classList.remove('bg-red-400', 'bg-yellow-400', 'bg-green-400'); // Limpiar las clases de fondo
+    diasDeLaSemana.forEach((elementoDia, index) => {
+        elementoDia.style.color = "black"; // Reiniciar el color de texto a negro
 
         // Si el día excede el último día del mes actual, cambiar al siguiente mes
         if (dia > ultimoDiaDelMes(anioActual, mesActual)) {
@@ -174,13 +158,16 @@ function actualizarCalendario() {
         // Actualizar el contenido del elemento del día
         elementoDia.innerHTML = dia;
 
+        // Cambiar el color si es el día actual
+        if (index === diaSemana) {
+            elementoDia.style.color = "red"; // Resaltar el día actual en rojo
+        }
+
         // Incrementar el día para la siguiente iteración
         dia++;
     });
-
-    // Marcar el día actual con una clase especial
-    diasDeLaSemana[diaSemana].classList.add('text-red-500'); // Resaltar el día actual
 }
+
 
 
 
@@ -251,10 +238,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // Recargar api
-setInterval(() => {
-    mostrarTemperatura(); // Actualizar la temperatura
-}, 1800000); // cada 30 mins
-mostrarTemperatura();
+// setInterval(() => {
+//     mostrarTemperatura(); // Actualizar la temperatura
+// }, 1800000); // cada 30 mins
+// mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

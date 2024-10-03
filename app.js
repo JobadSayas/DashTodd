@@ -1,4 +1,4 @@
-const version = "2.11";
+const version = "2.12";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -99,7 +99,6 @@ function iniciarCuentaRegresiva() {
     cuentaRegresivaDiv.style.display = 'block'; // Mostrar el div
 
     const minutosActuales = ahora.getMinutes(); // Obtener minutos actuales
-    console.log(minutosActuales)
 
     // Calcular los minutos restantes hasta la próxima hora
     const minutosRestantes = 60 - minutosActuales;
@@ -257,7 +256,6 @@ let minutos = 0;
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
     // ahora = new Date("Oct 31 2024 13:00:42 GMT-0500 (Central Daylight Time");
-    console.log(ahora)
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo

@@ -1,14 +1,10 @@
-const version = "2.9";
+const version = "2.11";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
 
 // Función para actualizar la hora y el semáforo
 function actualizarHoraYSemaforo() {
-    const ahora = new Date(); // Obtener la hora actual
-    const horas = ahora.getHours(); // Obtener las horas
-    const minutos = ahora.getMinutes(); // Obtener los minutos
-
     // Formatear la hora y los minutos para que siempre tengan dos dígitos
     const formatoHoras = horas % 12 || 12; // Convertir a formato 12 horas
     const formatoMinutos = String(minutos).padStart(2, '0'); // Agregar cero a la izquierda si es necesario
@@ -62,45 +58,72 @@ function actualizarHoraYSemaforo() {
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
-        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
-    } else if (horas === 6) { // 6:00 AM
+    if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-    } else if (horas === 7) { // 7:00 AM
-        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
     } else if (horas === 12) { // 12:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
+        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
+    } else if (horas === 7) { // 7:00 AM
+        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
+        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else if (horas === 13) { // 1:00 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
         contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else if (horas === 19) { // 7:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
+        iniciarCuentaRegresiva(60); // Iniciar cuenta regresiva para 1 hora
     } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else { // 8:00 PM - 11:59 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
         contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
 
 }
 
+
+function iniciarCuentaRegresiva() {
+    const cuentaRegresivaDiv = document.getElementById('minutes-left');
+    cuentaRegresivaDiv.style.display = 'block'; // Mostrar el div
+
+    const minutosActuales = ahora.getMinutes(); // Obtener minutos actuales
+    console.log(minutosActuales)
+
+    // Calcular los minutos restantes hasta la próxima hora
+    const minutosRestantes = 60 - minutosActuales;
+
+    cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Actualizar el contenido solo con minutos
+
+    setTimeout(iniciarCuentaRegresiva, 1000); // Llamar nuevamente cada segundo
+}
+
+
+// Nueva función para ocultar la cuenta regresiva
+function ocultarCuentaRegresiva() {
+    const cuentaRegresivaDiv = document.getElementById('minutes-left');
+    cuentaRegresivaDiv.style.display = 'none'; // Ocultar el div
+}
+
 // Función para actualizar el calendario
 function actualizarCalendario() {
-    const hoy = new Date(); // Obtener la fecha actual
-    const diaActualMes = hoy.getDate(); // Día actual del mes
-    const diaSemana = hoy.getDay(); // Día de la semana (0=Domingo, 6=Sábado)
+
+    const diaActualMes = ahora.getDate(); // Día actual del mes
+    const diaSemana = ahora.getDay(); // Día de la semana (0=Domingo, 6=Sábado)
 
     // Obtener el primer día de la semana (domingo)
-    const primerDiaDeLaSemana = new Date(hoy);
+    const primerDiaDeLaSemana = new Date(ahora);
     primerDiaDeLaSemana.setDate(diaActualMes - diaSemana);
 
     // Función para verificar si un año es bisiesto
@@ -115,7 +138,7 @@ function actualizarCalendario() {
     }
 
     // Obtener el último día del mes actual
-    const ultimoDiaDelMesActual = ultimoDiaDelMes(hoy.getFullYear(), hoy.getMonth());
+    const ultimoDiaDelMesActual = ultimoDiaDelMes(ahora.getFullYear(), ahora.getMonth());
 
     // Obtener los elementos de los días de la semana
     const diasDeLaSemana = [
@@ -218,8 +241,6 @@ function actualizarTemperatura() {
 //Funcion para mostrar la coritna
 function mostrarCortina() {
     const cortinaDiv = document.getElementById('cortina'); // Seleccionar el div con id 'cortina'
-    const ahora = new Date(); // Obtener la hora actual
-    const horas = ahora.getHours(); // Obtener las horas
 
     // Mostrar el div #cortina solo entre las 10:00 PM y las 6:00 AM
     if (horas >= 22 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
@@ -229,19 +250,26 @@ function mostrarCortina() {
     }
 }
 
-
+let ahora = 0;
+let horas = 0;
+let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
+    ahora = new Date(); // Obtener la hora actual
+    // ahora = new Date("Oct 31 2024 13:00:42 GMT-0500 (Central Daylight Time");
+    console.log(ahora)
+    horas = ahora.getHours(); // Obtener las horas
+    minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
     actualizarCalendario(); // Actualizar el calendario
     mostrarCortina() // Mostrar coritna
 }, 1000); //cada segundo
 
 // Recargar api
-// setInterval(() => {
-//     mostrarTemperatura(); // Actualizar la temperatura
-// }, 1800000); // cada 30 mins
-// mostrarTemperatura();
+setInterval(() => {
+    mostrarTemperatura(); // Actualizar la temperatura
+}, 1800000); // cada 30 mins
+mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

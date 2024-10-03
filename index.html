@@ -23,17 +23,20 @@
 
     <div id="cortina" class="absolute top-0 left-0 w-screen h-screen z-20 bg-black hidden"></div>
 
-    <div id="version" class="text-white text-md absolute top-4 left-5 z-10"></div>
+    <div id="version" class="text-white text-md absolute top-[12px] left-[18px] z-10"></div>
 
     <!-- Semáforo -->
-    <div id="semaforo" class="relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0">
-        <img src="" id="semaforoImg" alt="Semáforo" class="h-full w-auto mx-auto my-auto">
+    <div id="semaforo" class="relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0 justify-center">
+        <div class="flex items-center">
+            <img src="" id="semaforoImg" alt="Semáforo" class="h-full w-auto mx-auto my-auto">
+            <div id="minutes-left" class="font-bold text-5xl ml-[18px] w-[53px] text-center">00</div>
+        </div>
     </div>
 
     <!-- Módulo de hora -->
     <div id="hora" class="relative rounded-lg bg-white w-full h-[113px] flex items-center justify-center overflow-hidden">
         <img src="" id="imagenHora" alt="Imagen de la hora" class="absolute inset-0 w-auto h-full mx-auto">
-        <div id="mostrarHora" class="absolute bottom-[-26px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl z-10 font-bold flex gap-2 items-end">00:00 <small style="position: relative; top:-2px">AM</small></div>
+        <div id="mostrarHora" class="absolute bottom-[-24px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl z-10 font-bold flex gap-2 items-end">00:00 <small style="position: relative; top:-2px">AM</small></div>
     </div>
 
 

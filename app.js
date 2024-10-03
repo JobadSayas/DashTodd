@@ -1,4 +1,4 @@
-const version = "2.12";
+const version = "2.13";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -61,35 +61,39 @@ function actualizarHoraYSemaforo() {
     if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-    } else if (horas === 12) { // 12:00 PM
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
     } else if (horas === 7) { // 7:00 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
         ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas === 13) { // 1:00 PM
-        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas === 19) { // 7:00 PM
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        iniciarCuentaRegresiva(60); // Iniciar cuenta regresiva para 1 hora
     } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    } else if (horas === 12) { // 12:00 PM
+        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
+        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
+        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
+    } else if (horas === 13) { // 1:00 PM
+        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
+        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
         ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
         ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    } else if (horas === 19) { // 7:00 PM
+        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
+        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
+        iniciarCuentaRegresiva(); // Iniciar cuenta regresiva para 1 hora
+    } else if (horas === 20) { // 8:00 PM
+        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
+        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else { // 8:00 PM - 11:59 PM
         imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
         contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
         ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    }
+    }    
 
 }
 
@@ -255,7 +259,7 @@ let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 31 2024 13:00:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date("Oct 3 2024 13:00:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo

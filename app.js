@@ -1,4 +1,4 @@
-const version = "2.14";
+const version = "2.15";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -21,6 +21,7 @@ function actualizarHora() {
     if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
+        mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
@@ -62,7 +63,7 @@ function actualizarSemaforo() {
     if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
     } else if (horas === 7) { // 7:00 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde

@@ -1,10 +1,10 @@
-const version = "2.13";
+const version = "2.14";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
 
 // Función para actualizar la hora y el semáforo
-function actualizarHoraYSemaforo() {
+function actualizarHora() {
     // Formatear la hora y los minutos para que siempre tengan dos dígitos
     const formatoHoras = horas % 12 || 12; // Convertir a formato 12 horas
     const formatoMinutos = String(minutos).padStart(2, '0'); // Agregar cero a la izquierda si es necesario
@@ -21,7 +21,6 @@ function actualizarHoraYSemaforo() {
     if (horas >= 0 && horas < 6) { // 12:00 AM - 5:59 AM
         imagenHora.src = 'img/noche.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
-        mostrarHora.style.color = 'white'; // Cambiar a texto blanco
     } else if (horas >= 6 && horas < 7) { // 6:00 AM - 6:59 AM
         imagenHora.src = 'img/crepusculo.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
@@ -50,9 +49,11 @@ function actualizarHoraYSemaforo() {
         imagenHora.src = 'img/noche.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
-    }    
-    
+    }  
+}
 
+
+function actualizarSemaforo() {
     // Cambiar la imagen del semáforo según la hora
     const imagenSemaforo = document.getElementById('semaforoImg'); // Seleccionar la imagen del semáforo
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
@@ -61,6 +62,7 @@ function actualizarHoraYSemaforo() {
     if (horas === 6) { // 6:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
         contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
+        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     } else if (horas === 7) { // 7:00 AM
         imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
         contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
@@ -94,7 +96,6 @@ function actualizarHoraYSemaforo() {
         contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
         ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }    
-
 }
 
 
@@ -108,8 +109,6 @@ function iniciarCuentaRegresiva() {
     const minutosRestantes = 60 - minutosActuales;
 
     cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Actualizar el contenido solo con minutos
-
-    setTimeout(iniciarCuentaRegresiva, 1000); // Llamar nuevamente cada segundo
 }
 
 
@@ -262,7 +261,8 @@ setInterval(() => {
     // ahora = new Date("Oct 3 2024 13:00:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
-    actualizarHoraYSemaforo(); // Actualizar la hora y el semáforo
+    actualizarHora();
+    actualizarSemaforo();
     actualizarCalendario(); // Actualizar el calendario
     mostrarCortina() // Mostrar coritna
 }, 1000); //cada segundo

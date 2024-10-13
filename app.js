@@ -1,4 +1,4 @@
-const version = "2.15";
+const version = "2.16";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 

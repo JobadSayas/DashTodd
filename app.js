@@ -1,6 +1,11 @@
-const version = "2.16";
+const version = "2.20";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
+
+const despertar = 6;
+const siesta = 1;
+const dormir = 8;
+const ajusteMinutos = 15;
 
 
 // Función para actualizar la hora y el semáforo
@@ -54,48 +59,60 @@ function actualizarHora() {
 }
 
 
+
 function actualizarSemaforo() {
     // Cambiar la imagen del semáforo según la hora
     const imagenSemaforo = document.getElementById('semaforoImg'); // Seleccionar la imagen del semáforo
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if (horas === 6) { // 6:00 AM
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
-    } else if (horas === 7) { // 7:00 AM
-        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas >= 8 && horas < 12) { // 8:00 AM - 11:59 AM
-        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas === 12) { // 12:00 PM
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
-    } else if (horas === 13) { // 1:00 PM
-        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas >= 14 && horas < 19) { // 2:00 PM - 6:59 PM
-        imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a imagen verde
-        contenedorSemaforo.style.backgroundColor = '#4ade80'; // Cambiar el fondo a verde
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else if (horas === 19) { // 7:00 PM
-        imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a imagen amarilla
-        contenedorSemaforo.style.backgroundColor = '#facc15'; // Cambiar el fondo a amarillo
-        iniciarCuentaRegresiva(); // Iniciar cuenta regresiva para 1 hora
-    } else if (horas === 20) { // 8:00 PM
-        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    } else { // 8:00 PM - 11:59 PM
-        imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a imagen roja
-        contenedorSemaforo.style.backgroundColor = '#f87171'; // Cambiar el fondo a rojo
-        ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    if ((horas === 6 && minutos >= ajusteMinutos) || 
+        (horas === 7 && minutos < ajusteMinutos)) { // 12:15 PM
+            imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
+            contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
+            iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
+    } 
+    else if ((horas > 7 || 
+             (horas === 7 && minutos >= ajusteMinutos)) && 
+             (horas < 12 || 
+             (horas === 12 && minutos < ajusteMinutos))) {
+                imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
+                contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
+                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    }
+    else if ((horas === 12 && minutos >= ajusteMinutos) || 
+             (horas === 13 && minutos < ajusteMinutos)) {
+                imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
+                contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
+                iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
+    }
+    else if ((horas === 13 && minutos >= ajusteMinutos) || 
+             (horas === 14 && minutos < ajusteMinutos)) {
+                imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
+                contenedorSemaforo.style.backgroundColor = '#f87171'; // Fondo rojo
+                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    }
+    else if ((horas > 14 || 
+             (horas === 14 && minutos >= ajusteMinutos)) && 
+             (horas < 19 || 
+             (horas === 19 && minutos < ajusteMinutos))) {
+                imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
+                contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
+                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
+    }
+    else if ((horas === 19 && minutos >= ajusteMinutos) || 
+             (horas === 20 && minutos < ajusteMinutos)) { // 12:15 PM
+                imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
+                contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
+                iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
+    }
+    else if ((horas === 20 && minutos >= ajusteMinutos) || // 8:15 PM to 8:59 PM
+             (horas > 20 && horas < 24) ||      // 9:00 PM to 11:59 PM
+             (horas >= 0 && horas < 6) ||       // 12:00 AM to 5:59 AM
+             (horas === 6 && minutos < ajusteMinutos)) {  // 6:00 AM to 6:15 AM
+                imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
+                contenedorSemaforo.style.backgroundColor = '#f87171'; // Fondo rojo
+                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }    
 }
 
@@ -107,7 +124,7 @@ function iniciarCuentaRegresiva() {
     const minutosActuales = ahora.getMinutes(); // Obtener minutos actuales
 
     // Calcular los minutos restantes hasta la próxima hora
-    const minutosRestantes = 60 - minutosActuales;
+    const minutosRestantes = (60) - minutosActuales;
 
     cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Actualizar el contenido solo con minutos
 }
@@ -196,7 +213,6 @@ function actualizarCalendario() {
 
 
 
-
 let temperatura = 0;
 // Función para obtener y mostrar la temperatura actual
 async function mostrarTemperatura() {
@@ -258,8 +274,8 @@ let horas = 0;
 let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
-    ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 3 2024 13:00:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date(); // Obtener la hora actual
+    ahora = new Date("Oct 3 2024 13:00:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();
@@ -269,10 +285,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // Recargar api
-setInterval(() => {
-    mostrarTemperatura(); // Actualizar la temperatura
-}, 1800000); // cada 30 mins
-mostrarTemperatura();
+// setInterval(() => {
+//     mostrarTemperatura(); // Actualizar la temperatura
+// }, 1800000); // cada 30 mins
+// mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

@@ -122,11 +122,18 @@ function iniciarCuentaRegresiva() {
     cuentaRegresivaDiv.style.display = 'block'; // Mostrar el div
 
     const minutosActuales = ahora.getMinutes(); // Obtener minutos actuales
+    const minutosSiguienteAjuste = (60 - ajusteMinutos) + ajusteMinutos; // Calcula el siguiente ajuste
 
-    // Calcular los minutos restantes hasta la próxima hora
-    const minutosRestantes = (60) - minutosActuales;
-
-    cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Actualizar el contenido solo con minutos
+    // Si estamos dentro de la misma hora
+    if (minutosActuales < ajusteMinutos) {
+        const minutosRestantes = ajusteMinutos - minutosActuales;
+        cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Mostrar los minutos restantes
+    }
+    // Si ya hemos pasado el ajuste de la hora, cuenta hasta el ajuste de la siguiente hora
+    else {
+        const minutosRestantes = (60 - minutosActuales) + ajusteMinutos;
+        cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Mostrar los minutos restantes
+    }
 }
 
 
@@ -274,8 +281,8 @@ let horas = 0;
 let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
-    // ahora = new Date(); // Obtener la hora actual
-    ahora = new Date("Oct 3 2024 13:00:42 GMT-0500 (Central Daylight Time");
+    ahora = new Date(); // Obtener la hora actual
+    // ahora = new Date("Oct 3 2024 13:14:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();
@@ -285,10 +292,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // Recargar api
-// setInterval(() => {
-//     mostrarTemperatura(); // Actualizar la temperatura
-// }, 1800000); // cada 30 mins
-// mostrarTemperatura();
+setInterval(() => {
+    mostrarTemperatura(); // Actualizar la temperatura
+}, 1800000); // cada 30 mins
+mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

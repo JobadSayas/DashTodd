@@ -1,6 +1,6 @@
 const version = "3.0";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
-versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
+// versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
 const despertar = 6;
 const siesta = 1;

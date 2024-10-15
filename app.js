@@ -1,4 +1,4 @@
-const version = "2.20";
+const version = "3.0";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = `v${version}`; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -292,10 +292,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // Recargar api
-setInterval(() => {
-    mostrarTemperatura(); // Actualizar la temperatura
-}, 1800000); // cada 30 mins
-mostrarTemperatura();
+// setInterval(() => {
+//     mostrarTemperatura(); // Actualizar la temperatura
+// }, 1800000); // cada 30 mins
+// mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

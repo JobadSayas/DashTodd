@@ -1,11 +1,11 @@
-const version = "3.0";
+const version = "3.1";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 // versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
 const despertar = 6;
 const siesta = 1;
 const dormir = 8;
-const ajusteMinutos = 15;
+const ajusteMinutos = 30;
 
 
 // Función para actualizar la hora y el semáforo
@@ -276,13 +276,15 @@ function mostrarCortina() {
     }
 }
 
+
+
 let ahora = 0;
 let horas = 0;
 let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 3 2024 13:14:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date("Oct 3 2024 18:30:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();
@@ -292,10 +294,10 @@ setInterval(() => {
 }, 1000); //cada segundo
 
 // Recargar api
-// setInterval(() => {
-//     mostrarTemperatura(); // Actualizar la temperatura
-// }, 1800000); // cada 30 mins
-// mostrarTemperatura();
+setInterval(() => {
+    mostrarTemperatura(); // Actualizar la temperatura
+}, 1800000); // cada 30 mins
+mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

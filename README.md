@@ -32,3 +32,27 @@ I've set it up on an old phone mounted inside a frame to resemble a dashboard, h
 
 ## Weather API Used
 Visual Crossing Web Services
+
+<table>
+  <tr>
+    <td>
+      <img src="./screenshots/morning.png" >
+    </td>
+    <td>
+      <img src="./screenshots/noon.png" >
+    </td>
+    <td>
+      <img src="./screenshots/night.png" >
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="./screenshots/dashtod-1.jpg" >
+    </td>
+    <td>
+      <img src="./screenshots/dashtodd-2.jpg" >
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>

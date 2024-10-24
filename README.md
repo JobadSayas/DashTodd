@@ -36,21 +36,21 @@ Visual Crossing Web Services
 <table>
   <tr>
     <td>
-      <img src="./screenshots/morning.png" width="100%>
+      <img src="./screenshots/morning.png" width="100%">
     </td>
     <td>
-      <img src="./screenshots/noon.png" width="100%>
+      <img src="./screenshots/noon.png" width="100%">
     </td>
     <td>
-      <img src="./screenshots/night.png" width="100%>
+      <img src="./screenshots/night.png" width="100%">
     </td>
   </tr>
   <tr>
     <td>
-      <img src="./screenshots/dashtodd-1.jpg" width="100%>
+      <img src="./screenshots/dashtodd-1.jpg" width="100%">
     </td>
     <td>
-      <img src="./screenshots/dashtodd-2.jpg" width="100%>
+      <img src="./screenshots/dashtodd-2.jpg" width="100%">
     </td>
     <td>
     </td>

@@ -47,7 +47,7 @@ Visual Crossing Web Services
   </tr>
   <tr>
     <td>
-      <img src="./screenshots/dashtod-1.jpg" >
+      <img src="./screenshots/dashtodd-1.jpg" >
     </td>
     <td>
       <img src="./screenshots/dashtodd-2.jpg" >

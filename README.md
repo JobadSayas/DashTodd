@@ -33,6 +33,9 @@ I've set it up on an old phone mounted inside a frame to resemble a dashboard, h
 ## Weather API Used
 Visual Crossing Web Services
 
+## Screenshots
+Visual Crossing Web Services
+
 <table>
   <tr>
     <td>

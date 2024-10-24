@@ -1,6 +1,6 @@
 # DashTodd - Time/Weather Dashboard for Toddlers
 
-## Project Description
+## Description
 
 DashTodd is a web app I developed to help my curious toddler with understanding the time, weather, and calendar. My child used to ask endless questions like "Is it cold outside?", "Can I go out and play?", "How much longer until nap time?", "What day is it?", "What are we going to do today?". These questions sparked the idea for DashTodd, which not only answers these questions but also helps my child follow a routine.
 

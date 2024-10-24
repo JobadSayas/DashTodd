@@ -53,7 +53,6 @@ Visual Crossing Web Services
       <img src="./screenshots/dashtodd-1.jpg" width="100%">
     </td>
     <td>
-      
     </td>
   </tr>
 </table>

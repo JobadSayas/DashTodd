@@ -1,4 +1,4 @@
-const version = "4.1";
+const version = "4.2";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -67,7 +67,7 @@ function actualizarSemaforo() {
     
     // Cambios en el semáforo basados en rangos de hora
     if ((horas === 6 && minutos >= ajusteMinutos) || 
-        (horas === 7 && minutos < ajusteMinutos)) { // 12:15 PM
+        (horas === 7 && minutos < ajusteMinutos)) { 
             imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
             contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
             iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
@@ -293,8 +293,7 @@ function rotateFan() {
 }
 
 // Start the rotation with a setInterval
-setInterval(rotateFan, 15); // Adjust interval for smoother or faster animation
-
+setInterval(rotateFan, 25); // Adjust interval for smoother or faster animation
 
 
 let ahora = 0;
@@ -312,7 +311,7 @@ setInterval(() => {
     mostrarCortina() // Mostrar coritna
 }, 1000); //cada segundo
 
-// Recargar api
+// Recargar api / Comment when on development
 setInterval(() => {
     mostrarTemperatura(); // Actualizar la temperatura
 }, 1800000); // cada 30 mins

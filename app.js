@@ -1,6 +1,6 @@
-const version = "3.2";
+const version = "4.1";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
-// versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
+versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
 const despertar = 6;
 const siesta = 1;
@@ -221,6 +221,7 @@ function actualizarCalendario() {
 
 
 let temperatura = 0;
+let airSpeed = 0;
 // Función para obtener y mostrar la temperatura actual
 async function mostrarTemperatura() {
     const apiKey = 'MJKZY85NQXXSP4NGC69T62JS9';
@@ -233,6 +234,11 @@ async function mostrarTemperatura() {
 
         // Redondear la temperatura
         temperatura = Math.round(datos.currentConditions.feelslike); // Actualiza la variable global
+        airSpeed = Math.round(datos.currentConditions.windgust); // Actualiza la variable global
+
+        let airSpeedDiv = document.getElementById('airSpeed'); // Select the div with id 'version'
+        airSpeedDiv.innerHTML = airSpeed; // Set the inner HTML to 'v' concatenated with the version number
+
         
         // Limitar la temperatura entre 0 y 100
         if (temperatura < 0) {
@@ -275,6 +281,19 @@ function mostrarCortina() {
         cortinaDiv.style.display = 'none'; // Ocultar el div
     }
 }
+
+//Fan air speed
+let angle = 0; // Starting angle of rotation
+const fan = document.getElementById("fan");
+
+// Function to update rotation
+function rotateFan() {
+    angle = (angle + airSpeed) % 360; // Update angle with current speed
+    fan.style.transform = `rotate(${angle}deg)`; // Apply rotation to fan image
+}
+
+// Start the rotation with a setInterval
+setInterval(rotateFan, 15); // Adjust interval for smoother or faster animation
 
 
 

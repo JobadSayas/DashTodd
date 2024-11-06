@@ -1,4 +1,4 @@
-const version = "4.4";
+const version = "5.0";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -31,23 +31,23 @@ function actualizarHora() {
         imagenHora.src = 'img/crepusculo.jpg';
         contenedorHora.style.backgroundColor = '#312e81'; // bg-indigo-900
         mostrarHora.style.color = 'white'; // Cambiar a texto blanco
-    } else if (horas >= 7 && horas < 9) { // 7:00 AM - 8:59 AM
+    } else if (horas >= 7 && horas < 8) { // 7:00 AM - 8:59 AM
         imagenHora.src = 'img/amanecer.jpg';
         contenedorHora.style.backgroundColor = '#3b82f6'; // bg-blue-500
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 9 && horas < 12) { // 9:00 AM - 11:59 AM
+    } else if (horas >= 8 && horas < 11) { // 9:00 AM - 11:59 AM
         imagenHora.src = 'img/manana.jpg';
         contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 12 && horas < 15) { // 12:00 PM - 2:59 PM
+    } else if (horas >= 11 && horas < 14) { // 12:00 PM - 2:59 PM
         imagenHora.src = 'img/medio-dia.jpg';
         contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 15 && horas < 18) { // 3:00 PM - 5:59 PM
+    } else if (horas >= 14 && horas < 17) { // 3:00 PM - 5:59 PM
         imagenHora.src = 'img/tarde.jpg';
         contenedorHora.style.backgroundColor = '#7dd3fc'; // bg-sky-300
         mostrarHora.style.color = 'black'; // Texto negro
-    } else if (horas >= 18 && horas < 20) { // 6:00 PM - 7:59 PM
+    } else if (horas >= 17 && horas < 18) { // 6:00 PM - 7:59 PM
         imagenHora.src = 'img/atardecer.jpg';
         contenedorHora.style.backgroundColor = '#fb923c'; // bg-orange-300
         mostrarHora.style.color = 'black'; // Texto negro
@@ -66,50 +66,43 @@ function actualizarSemaforo() {
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if ((horas === 6 && minutos >= ajusteMinutos) || 
-        (horas === 7 && minutos < ajusteMinutos)) { 
+    if (horas === 6 && minutos >= 45 && minutos <= 59) {
             imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
             contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
             iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
     } 
-    else if ((horas > 7 || 
-             (horas === 7 && minutos >= ajusteMinutos)) && 
-             (horas < 12 || 
-             (horas === 12 && minutos < ajusteMinutos))) {
+    else if ((horas >= 7 && horas < 12)) { 
                 imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
                 contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
-    else if ((horas === 12 && minutos >= ajusteMinutos) || 
-             (horas === 13 && minutos < ajusteMinutos)) {
+    else if ((horas === 12 && minutos >= 0 && minutos < 30)) { 
                 imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
                 contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
                 iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
     }
-    else if ((horas === 13 && minutos >= ajusteMinutos) || 
-             (horas === 14 && minutos < ajusteMinutos)) {
+    else if ((horas === 12 && minutos >= 30) || 
+             (horas === 13 && minutos < 30)) {
                 imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
                 contenedorSemaforo.style.backgroundColor = '#f87171'; // Fondo rojo
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
-    else if ((horas > 14 || 
-             (horas === 14 && minutos >= ajusteMinutos)) && 
-             (horas < 19 || 
-             (horas === 19 && minutos < ajusteMinutos))) {
+    else if ((horas === 13 && minutos >= 30) || 
+             (horas > 13 && horas < 19) || 
+             (horas === 19 && minutos < 30)) {
                 imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
                 contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
-    else if ((horas === 19 && minutos >= ajusteMinutos) || 
-             (horas === 20 && minutos < ajusteMinutos)) { // 12:15 PM
+    else if ((horas === 19 && minutos >= 30) || 
+             (horas === 20 && minutos < 0)) { 
                 imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
                 contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
                 iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
     }
-    else if ((horas === 20 && minutos >= ajusteMinutos) || // 8:15 PM to 8:59 PM
-             (horas > 20 && horas < 24) ||      // 9:00 PM to 11:59 PM
-             (horas >= 0 && horas < 6) ||       // 12:00 AM to 5:59 AM
-             (horas === 6 && minutos < ajusteMinutos)) {  // 6:00 AM to 6:15 AM
+    else if ((horas >= 20 && horas < 24) || // De 20:00 a 23:59
+             (horas >= 0 && horas < 6) ||   // De 00:00 a 5:59
+             (horas === 6 && minutos < 45)) {  // Hasta 6:44
                 imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
                 contenedorSemaforo.style.backgroundColor = '#f87171'; // Fondo rojo
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
@@ -234,7 +227,7 @@ async function mostrarTemperatura() {
 
         // Redondear la temperatura
         temperatura = Math.round(datos.currentConditions.feelslike); // Actualiza la variable global
-        airSpeed = Math.round(datos.currentConditions.windgust); // Actualiza la variable global
+        airSpeed = Math.round(datos.currentConditions.windspeed); // Actualiza la variable global
 
         let airSpeedDiv = document.getElementById('airSpeed'); // Select the div with id 'version'
         airSpeedDiv.innerHTML = airSpeed; // Set the inner HTML to 'v' concatenated with the version number
@@ -275,7 +268,7 @@ function mostrarCortina() {
     const cortinaDiv = document.getElementById('cortina'); // Seleccionar el div con id 'cortina'
 
     // Mostrar el div #cortina solo entre las 10:00 PM y las 6:00 AM
-    if (horas >= 22 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
+    if (horas >= 23 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
         cortinaDiv.style.display = 'block'; // Mostrar el div
     } else {
         cortinaDiv.style.display = 'none'; // Ocultar el div
@@ -302,7 +295,7 @@ let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 3 2024 18:30:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date("Oct 6 2024 21:10:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();
@@ -314,7 +307,7 @@ setInterval(() => {
 // Recargar api / Comment when on development
 setInterval(() => {
     mostrarTemperatura(); // Actualizar la temperatura
-}, 1800000); // cada 30 mins
+}, 600000); // cada 15 mins
 mostrarTemperatura();
 
 // Recargar la página

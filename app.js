@@ -1,11 +1,11 @@
-const version = "4.2";
+const version = "4.4";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
 const despertar = 6;
 const siesta = 1;
 const dormir = 8;
-const ajusteMinutos = 45;
+const ajusteMinutos = 0;
 
 
 // Función para actualizar la hora y el semáforo

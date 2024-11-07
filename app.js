@@ -1,4 +1,4 @@
-const version = "5.0";
+const version = "5.3";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -66,20 +66,22 @@ function actualizarSemaforo() {
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if (horas === 6 && minutos >= 45 && minutos <= 59) {
+    if ((horas === 6 && minutos >= 45) || 
+        (horas === 7 && minutos < 0)) { 
             imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
             contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
-            iniciarCuentaRegresiva(); // Iniciar la cuenta regresiva
+            iniciarCuentaRegresiva(7, 0);
     } 
-    else if ((horas >= 7 && horas < 12)) { 
+    else if ((horas >= 7 && horas < 12)) {
                 imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
                 contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
-    else if ((horas === 12 && minutos >= 0 && minutos < 30)) { 
+    else if ((horas === 12 && minutos >= 0) || 
+             (horas === 12 && minutos < 30)) { 
                 imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
                 contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
-                iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
+                iniciarCuentaRegresiva(12, 30);
     }
     else if ((horas === 12 && minutos >= 30) || 
              (horas === 13 && minutos < 30)) {
@@ -98,7 +100,7 @@ function actualizarSemaforo() {
              (horas === 20 && minutos < 0)) { 
                 imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
                 contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
-                iniciarCuentaRegresiva(); // Iniciar cuenta regresiva
+                iniciarCuentaRegresiva(20, 0);
     }
     else if ((horas >= 20 && horas < 24) || // De 20:00 a 23:59
              (horas >= 0 && horas < 6) ||   // De 00:00 a 5:59
@@ -110,23 +112,38 @@ function actualizarSemaforo() {
 }
 
 
-function iniciarCuentaRegresiva() {
+function iniciarCuentaRegresiva(horaObjetivo, minutoObjetivo) {
     const cuentaRegresivaDiv = document.getElementById('minutes-left');
     cuentaRegresivaDiv.style.display = 'block'; // Mostrar el div
 
-    const minutosActuales = ahora.getMinutes(); // Obtener minutos actuales
-    const minutosSiguienteAjuste = (60 - ajusteMinutos) + ajusteMinutos; // Calcula el siguiente ajuste
+    function actualizarCuentaRegresiva() {
+        // Obtener la fecha y hora actual
+        const horaActual = ahora.getHours();
+        const minutoActual = ahora.getMinutes();
 
-    // Si estamos dentro de la misma hora
-    if (minutosActuales < ajusteMinutos) {
-        const minutosRestantes = ajusteMinutos - minutosActuales;
-        cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Mostrar los minutos restantes
+        // Crear un objeto Date para la hora actual y el tiempo objetivo
+        const ahoraEnMinutos = horaActual * 60 + minutoActual;
+        const objetivoEnMinutos = horaObjetivo * 60 + minutoObjetivo;
+
+        // Calcular la diferencia en minutos (teniendo en cuenta cambio de día si es necesario)
+        let minutosRestantes = objetivoEnMinutos - ahoraEnMinutos;
+        if (minutosRestantes < 0) {
+            minutosRestantes += 24 * 60; // Añadir 24 horas en minutos si el objetivo es el día siguiente
+        }
+
+        // Actualizar el div con los minutos restantes
+        cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`;
+
+        // Detener la cuenta regresiva cuando llegue a 0
+        if (minutosRestantes <= 0) {
+            clearInterval(intervalo); // Limpiar el intervalo
+            cuentaRegresivaDiv.style.display = 'none'; // Ocultar el div
+        }
     }
-    // Si ya hemos pasado el ajuste de la hora, cuenta hasta el ajuste de la siguiente hora
-    else {
-        const minutosRestantes = (60 - minutosActuales) + ajusteMinutos;
-        cuentaRegresivaDiv.innerHTML = `${minutosRestantes}`; // Mostrar los minutos restantes
-    }
+
+    // Ejecutar el cálculo de inmediato y luego cada minuto
+    actualizarCuentaRegresiva(); // Llamada inicial
+    const intervalo = setInterval(actualizarCuentaRegresiva, 60000); // Actualización cada minuto
 }
 
 
@@ -268,7 +285,7 @@ function mostrarCortina() {
     const cortinaDiv = document.getElementById('cortina'); // Seleccionar el div con id 'cortina'
 
     // Mostrar el div #cortina solo entre las 10:00 PM y las 6:00 AM
-    if (horas >= 23 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
+    if (horas >= 22 || horas < 6) { // 10:00 PM (22) a 5:59 AM (5)
         cortinaDiv.style.display = 'block'; // Mostrar el div
     } else {
         cortinaDiv.style.display = 'none'; // Ocultar el div
@@ -295,7 +312,7 @@ let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 6 2024 21:10:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date("Oct 6 2024 6:55:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();

@@ -1,10 +1,10 @@
-const version = "5.3";
+const version = "8.0";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
-const despertar = 6;
+const despertar = 7;
 const siesta = 1;
-const dormir = 8;
+const dormir = 7;
 const ajusteMinutos = 0;
 
 
@@ -72,37 +72,21 @@ function actualizarSemaforo() {
             contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
             iniciarCuentaRegresiva(7, 0);
     } 
-    else if ((horas >= 7 && horas < 12)) {
+    else if (
+        (horas >= 7 && horas < 18) || // From 7:00 AM to 5:59 PM
+        (horas === 18 && minutos < 30) // From 6:00 PM to 6:30 PM
+    ) {
                 imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
                 contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
                 ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
     }
-    else if ((horas === 12 && minutos >= 0) || 
-             (horas === 12 && minutos < 30)) { 
+    else if ((horas === 18 && minutos >= 30) || 
+             (horas === 19 && minutos < 0)) { 
                 imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
                 contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
-                iniciarCuentaRegresiva(12, 30);
+                iniciarCuentaRegresiva(19, 0);
     }
-    else if ((horas === 12 && minutos >= 30) || 
-             (horas === 13 && minutos < 30)) {
-                imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
-                contenedorSemaforo.style.backgroundColor = '#f87171'; // Fondo rojo
-                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    }
-    else if ((horas === 13 && minutos >= 30) || 
-             (horas > 13 && horas < 19) || 
-             (horas === 19 && minutos < 30)) {
-                imagenSemaforo.src = 'img/verde.jpg'; // Cambiar a verde
-                contenedorSemaforo.style.backgroundColor = '#4ade80'; // Fondo verde
-                ocultarCuentaRegresiva(); // Ocultar cuenta regresiva
-    }
-    else if ((horas === 19 && minutos >= 30) || 
-             (horas === 20 && minutos < 0)) { 
-                imagenSemaforo.src = 'img/amarillo.jpg'; // Cambiar a amarillo
-                contenedorSemaforo.style.backgroundColor = '#facc15'; // Fondo amarillo
-                iniciarCuentaRegresiva(20, 0);
-    }
-    else if ((horas >= 20 && horas < 24) || // De 20:00 a 23:59
+    else if ((horas >= 19 && horas < 24) || // De 20:00 a 23:59
              (horas >= 0 && horas < 6) ||   // De 00:00 a 5:59
              (horas === 6 && minutos < 45)) {  // Hasta 6:44
                 imagenSemaforo.src = 'img/rojo.jpg'; // Cambiar a rojo
@@ -112,20 +96,27 @@ function actualizarSemaforo() {
 }
 
 
+let intervalo; // Variable para almacenar el intervalo globalmente
+
 function iniciarCuentaRegresiva(horaObjetivo, minutoObjetivo) {
     const cuentaRegresivaDiv = document.getElementById('minutes-left');
     cuentaRegresivaDiv.style.display = 'block'; // Mostrar el div
+
+    // Si ya hay un intervalo en ejecución, limpiarlo para evitar acumulación
+    if (intervalo) {
+        clearInterval(intervalo);
+    }
 
     function actualizarCuentaRegresiva() {
         // Obtener la fecha y hora actual
         const horaActual = ahora.getHours();
         const minutoActual = ahora.getMinutes();
 
-        // Crear un objeto Date para la hora actual y el tiempo objetivo
+        // Crear un cálculo en minutos desde medianoche para la hora actual y objetivo
         const ahoraEnMinutos = horaActual * 60 + minutoActual;
         const objetivoEnMinutos = horaObjetivo * 60 + minutoObjetivo;
 
-        // Calcular la diferencia en minutos (teniendo en cuenta cambio de día si es necesario)
+        // Calcular los minutos restantes (ajustando por cambio de día si es necesario)
         let minutosRestantes = objetivoEnMinutos - ahoraEnMinutos;
         if (minutosRestantes < 0) {
             minutosRestantes += 24 * 60; // Añadir 24 horas en minutos si el objetivo es el día siguiente
@@ -137,13 +128,14 @@ function iniciarCuentaRegresiva(horaObjetivo, minutoObjetivo) {
         // Detener la cuenta regresiva cuando llegue a 0
         if (minutosRestantes <= 0) {
             clearInterval(intervalo); // Limpiar el intervalo
+            intervalo = null; // Reiniciar la variable intervalo
             cuentaRegresivaDiv.style.display = 'none'; // Ocultar el div
         }
     }
 
     // Ejecutar el cálculo de inmediato y luego cada minuto
     actualizarCuentaRegresiva(); // Llamada inicial
-    const intervalo = setInterval(actualizarCuentaRegresiva, 60000); // Actualización cada minuto
+    intervalo = setInterval(actualizarCuentaRegresiva, 60000); // Actualización cada minuto
 }
 
 
@@ -232,6 +224,7 @@ function actualizarCalendario() {
 
 let temperatura = 0;
 let airSpeed = 0;
+let icon = '';
 // Función para obtener y mostrar la temperatura actual
 async function mostrarTemperatura() {
     const apiKey = 'MJKZY85NQXXSP4NGC69T62JS9';
@@ -245,9 +238,12 @@ async function mostrarTemperatura() {
         // Redondear la temperatura
         temperatura = Math.round(datos.currentConditions.feelslike); // Actualiza la variable global
         airSpeed = Math.round(datos.currentConditions.windspeed); // Actualiza la variable global
+        icon = datos.currentConditions.icon;
 
         let airSpeedDiv = document.getElementById('airSpeed'); // Select the div with id 'version'
         airSpeedDiv.innerHTML = airSpeed; // Set the inner HTML to 'v' concatenated with the version number
+
+        document.getElementById("icon").src = `img/icons/${icon}.svg`;
 
         
         // Limitar la temperatura entre 0 y 100
@@ -303,7 +299,7 @@ function rotateFan() {
 }
 
 // Start the rotation with a setInterval
-setInterval(rotateFan, 25); // Adjust interval for smoother or faster animation
+setInterval(rotateFan, 30); // Adjust interval for smoother or faster animation
 
 
 let ahora = 0;
@@ -312,7 +308,7 @@ let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
     ahora = new Date(); // Obtener la hora actual
-    // ahora = new Date("Oct 6 2024 6:55:42 GMT-0500 (Central Daylight Time");
+    // ahora = new Date("Oct 6 2024 18:55:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();

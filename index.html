@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>DashTodd</title>
     <meta name="description" content="Dashboard interactivo para niños">
@@ -19,7 +19,7 @@
         }
     </style>
 </head>
-<body class="flex flex-col bg-white p-3 gap-2 justify-start relative">
+<body class="flex flex-col bg-white p-3 gap-2 justify-start relative w-[360px]">
 
     <div id="cortina" class="absolute top-0 left-0 w-screen h-screen z-20 bg-black hidden"></div>
 
@@ -69,6 +69,12 @@
             <div id="viernes" class="w-full text-center text-3xl font-bold"></div>
             <div id="sabado" class="w-full text-center text-3xl font-bold"></div>
         </div>
+
+
+        <div id="event-1" class="text-center text-3xl font-bold text-white absolute bottom-[42px] left-[117px]">20<span class="text-lg">D</span></div>
+
+        <div id="event-2" class="text-center text-3xl font-bold text-white absolute bottom-[42px] left-[283px]">26<span class="text-lg">D</span></div>
+
     </div>
 
     <script src="app.js"></script>

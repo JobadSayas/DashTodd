@@ -1,4 +1,4 @@
-const version = "8.2";
+const version = "8.4";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -308,26 +308,57 @@ function rotateFan() {
 setInterval(rotateFan, 30); // Adjust interval for smoother or faster animation
 
 
-let ahora = 0;
+// //Events
+function evento(eventDateTime, ahora) {
+    // Parse the input date and time into a JavaScript Date object
+    const targetDate = new Date(eventDateTime);
+
+    // Remove the time portion from both dates to calculate full days only
+    const nowDate = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+    const targetDateOnly = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+
+    // Calculate the difference in milliseconds between the two dates
+    const differenceInMilliseconds = targetDateOnly - nowDate;
+
+    // Convert the difference from milliseconds to days
+    const daysRemaining = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+    // Return the number of days remaining
+    return `${daysRemaining}<span class="text-lg">D</span>`;
+}
+
+
 let horas = 0;
 let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
 setInterval(() => {
-    // ahora = new Date(); // Obtener la hora actual
-    ahora = new Date("Oct 6 2024 13:31:42 GMT-0500 (Central Daylight Time");
+    ahora = new Date(); // Obtener la hora actual
+    // ahora = new Date("Dec 3 2024 13:31:42 GMT-0500 (Central Daylight Time");
     horas = ahora.getHours(); // Obtener las horas
     minutos = ahora.getMinutes(); // Obtener los minutos
     actualizarHora();
     actualizarSemaforo();
     actualizarCalendario(); // Actualizar el calendario
-    mostrarCortina() // Mostrar coritna
-}, 1000); //cada segundo
+    mostrarCortina(); // Mostrar cortina
+
+    // Calcular y mostrar los días restantes para cada evento
+    let cuentaEvento1 = evento("12/22/2024 10:00 AM", ahora);
+    let cuentaEvento2 = evento("12/25/2024 10:00 AM", ahora);
+
+    let eventDiv1 = document.getElementById('event-1');
+    eventDiv1.innerHTML = cuentaEvento1;
+
+    let eventDiv2 = document.getElementById('event-2');
+    eventDiv2.innerHTML = cuentaEvento2;
+
+}, 1000); // cada segundo
+
 
 // Recargar api / Comment when on development
-// setInterval(() => {
-//     mostrarTemperatura(); // Actualizar la temperatura
-// }, 600000); // cada 15 mins
-// mostrarTemperatura();
+setInterval(() => {
+    mostrarTemperatura(); // Actualizar la temperatura
+}, 600000); // cada 15 mins
+mostrarTemperatura();
 
 // Recargar la página
 // setInterval(() => {

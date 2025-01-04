@@ -1,4 +1,4 @@
-const version = "8.4";
+const version = "8.8";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -328,6 +328,16 @@ function evento(eventDateTime, ahora) {
 }
 
 
+//Recargar pagina
+
+function recargarPaginaDiaria() {
+    // Revisar si la hora y minutos actuales coinciden con la hora objetivo
+    if (horas === 9 && minutos === 20) {
+        location.reload(); // Recargar la página
+    }
+}
+
+
 let horas = 0;
 let minutos = 0;
 // Llamar a las funciones de actualización cada segundo
@@ -340,10 +350,11 @@ setInterval(() => {
     actualizarSemaforo();
     actualizarCalendario(); // Actualizar el calendario
     mostrarCortina(); // Mostrar cortina
+    // recargarPaginaDiaria(); //Recargar pagina diaria
 
     // Calcular y mostrar los días restantes para cada evento
-    let cuentaEvento1 = evento("12/22/2024 10:00 AM", ahora);
-    let cuentaEvento2 = evento("12/25/2024 10:00 AM", ahora);
+    let cuentaEvento1 = evento("12/25/2024 10:00 AM", ahora);
+    let cuentaEvento2 = evento("1/15/2025 10:30 AM", ahora);
 
     let eventDiv1 = document.getElementById('event-1');
     eventDiv1.innerHTML = cuentaEvento1;

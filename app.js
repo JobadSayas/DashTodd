@@ -1,4 +1,4 @@
-const version = "8.9";
+const version = "8.10";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -66,27 +66,28 @@ function actualizarSemaforo() {
     const contenedorSemaforo = document.getElementById('semaforo'); // Contenedor padre del semáforo
     
     // Cambios en el semáforo basados en rangos de hora
-    if ((horas === 6 && minutos >= 45 && minutos < 60)) {
-        // Amarillo: 6:45 AM a 6:59 AM
+    if ((horas === 6 && minutos >= 45) || (horas === 7 && minutos < 0)) { 
+        // Yellow 6:45 AM to 7:00 AM
         imagenSemaforo.src = 'img/amarillo.jpg';
         contenedorSemaforo.style.backgroundColor = '#facc15';
         iniciarCuentaRegresiva(7, 0);
-    } else if ((horas === 7 && minutos < 30) || (horas > 7 && horas < 18) || (horas === 18 && minutos < 30)) {
-        // Verde: 7:00 AM a 6:29 PM
+    } else if (horas >= 7 && horas < 18 || (horas === 18 && minutos < 30)) {
+        // Green 7:00 AM to 6:29 PM
         imagenSemaforo.src = 'img/verde.jpg';
         contenedorSemaforo.style.backgroundColor = '#4ade80';
         ocultarCuentaRegresiva();
     } else if ((horas === 18 && minutos >= 30) || (horas === 19 && minutos < 0)) {
-        // Amarillo: 6:30 PM a 6:59 PM
+        // Yellow 6:30 PM to 7:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg';
         contenedorSemaforo.style.backgroundColor = '#facc15';
         iniciarCuentaRegresiva(19, 0);
-    } else if ((horas === 19 && minutos >= 0) || (horas < 6) || (horas === 6 && minutos < 45)) {
-        // Rojo: 7:00 PM a 6:44 AM
+    } else if ((horas >= 19 && horas < 24) || (horas >= 0 && horas < 6) || 
+               (horas === 6 && minutos < 45)) {
+        // Red 7:00 PM to 6:44 AM
         imagenSemaforo.src = 'img/rojo.jpg';
         contenedorSemaforo.style.backgroundColor = '#f87171';
         ocultarCuentaRegresiva();
-    }
+    } 
 }
 
 

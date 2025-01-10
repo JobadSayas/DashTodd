@@ -1,4 +1,4 @@
-const version = "8.10";
+const version = "8.11";
 const versionDiv = document.getElementById('version'); // Select the div with id 'version'
 versionDiv.innerHTML = version; // Set the inner HTML to 'v' concatenated with the version number
 
@@ -71,23 +71,23 @@ function actualizarSemaforo() {
         imagenSemaforo.src = 'img/amarillo.jpg';
         contenedorSemaforo.style.backgroundColor = '#facc15';
         iniciarCuentaRegresiva(7, 0);
-    } else if (horas >= 7 && horas < 18 || (horas === 18 && minutos < 30)) {
-        // Green 7:00 AM to 6:29 PM
+    } else if (horas >= 7 && horas < 19 || (horas === 19 && minutos < 30)) {
+        // Green 7:00 AM to 7:29 PM
         imagenSemaforo.src = 'img/verde.jpg';
         contenedorSemaforo.style.backgroundColor = '#4ade80';
         ocultarCuentaRegresiva();
-    } else if ((horas === 18 && minutos >= 30) || (horas === 19 && minutos < 0)) {
-        // Yellow 6:30 PM to 7:00 PM
+    } else if ((horas === 19 && minutos >= 30) || (horas === 20 && minutos < 0)) {
+        // Yellow 7:30 PM to 8:00 PM
         imagenSemaforo.src = 'img/amarillo.jpg';
         contenedorSemaforo.style.backgroundColor = '#facc15';
-        iniciarCuentaRegresiva(19, 0);
-    } else if ((horas >= 19 && horas < 24) || (horas >= 0 && horas < 6) || 
+        iniciarCuentaRegresiva(20, 0);
+    } else if ((horas >= 20 && horas < 24) || (horas >= 0 && horas < 6) || 
                (horas === 6 && minutos < 45)) {
-        // Red 7:00 PM to 6:44 AM
+        // Red 8:00 PM to 6:44 AM
         imagenSemaforo.src = 'img/rojo.jpg';
         contenedorSemaforo.style.backgroundColor = '#f87171';
         ocultarCuentaRegresiva();
-    } 
+    }    
 }
 
 

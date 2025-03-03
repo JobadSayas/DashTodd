@@ -1,3 +1,6 @@
 
 DashTodd design.afdesign
 /node_modules
+
+# production
+/build

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-const Calendar = () => {
+const Calendar = ({ dateTime }) => {
   const [days, setDays] = useState(Array(7).fill(null));
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
 
   useEffect(() => {
     actualizarCalendario();
-  }, []);
+  }, [dateTime]);  // Recalcular cuando dateTime cambie
 
   function actualizarCalendario() {
-    const ahora = new Date();
+    // Usamos la hora recibida desde props (dateTime)
+    const ahora = dateTime || new Date(); // Si no se pasa 'dateTime', usamos la fecha actual
     const diaActualMes = ahora.getDate(); // Día del mes
     const diaSemana = ahora.getDay(); // Día de la semana (0=Domingo, 6=Sábado)
 
@@ -82,10 +83,6 @@ const Calendar = () => {
           </div>
         ))}
       </div>
-
-      {/* Eventos */}
-      {/* <div id="event-1" className="w-[53px] text-center text-3xl font-bold text-white absolute bottom-[41px] left-[113px] hidden"></div>
-      <div id="event-2" className="w-[53px] text-center text-3xl font-bold text-white absolute bottom-[41px] left-[279px]"></div> */}
     </div>
   );
 };

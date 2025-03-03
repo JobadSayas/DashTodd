@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-const Semaforo = () => {
+const Semaforo = ({ dateTime }) => {  // Recibimos dateTime desde props
   const [color, setColor] = useState("bg-green-400");
   const [semaforoImg, setSemaforoImg] = useState();
   const [minutosRestantes, setMinutosRestantes] = useState(null);
 
   useEffect(() => {
     const actualizarSemaforo = () => {
-      const ahora = new Date();
-      const horas = ahora.getHours();
-      const minutos = ahora.getMinutes();
+      const horas = dateTime.getHours();  // Usamos la hora proveniente de dateTime
+      const minutos = dateTime.getMinutes();  // Usamos los minutos de dateTime
 
       if (
         (horas === 7 && minutos >= 15 && minutos < 30) // Amarillo entre 7:15 AM y 7:30 AM
       ) {
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(7, 0);
+        iniciarCuentaRegresiva(7, 30); // Cuenta regresiva hasta las 7:30 AM
       } else if (
         (horas > 7 && horas < 19) || // Desde las 8:00 AM hasta las 6:59 PM
         (horas === 7 && minutos >= 30) || // Desde las 7:30 AM
@@ -30,7 +29,7 @@ const Semaforo = () => {
       ) {
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(19, 30); // Si deseas iniciar la cuenta regresiva para las 7:30 PM
+        iniciarCuentaRegresiva(19, 30); // Cuenta regresiva hasta las 7:30 PM
       } else {
         setColor("bg-red-400");
         setSemaforoImg("rojo");
@@ -39,7 +38,7 @@ const Semaforo = () => {
     };
 
     const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo) => {
-      const ahora = new Date();
+      const ahora = dateTime; // Usamos dateTime para calcular la cuenta regresiva
       const objetivo = new Date();
       objetivo.setHours(horaObjetivo, minutoObjetivo, 0, 0);
 
@@ -51,11 +50,9 @@ const Semaforo = () => {
       }
     };
 
-    actualizarSemaforo();
-    const intervalo = setInterval(actualizarSemaforo, 60000); // Actualiza cada minuto
+    actualizarSemaforo();  // Llamamos a la función de actualización del semáforo al renderizar el componente
 
-    return () => clearInterval(intervalo);
-  }, []);
+  }, [dateTime]);  // Reejecutamos cuando `dateTime` cambie
 
   return (
     <div className={`relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0 justify-center ${color}`}>

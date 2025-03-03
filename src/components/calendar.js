@@ -73,7 +73,7 @@ const Calendar = ({ dateTime }) => {
       className="relative rounded-lg w-full h-[113px] flex gap-2 bg-center bg-no-repeat bg-contain bg-gray-200 flex-shrink-0 bg-[url('/img/calendario.jpg')]"
     >
       {/* Días de la Semana */}
-      <div className="w-[336px] flex justify-between absolute top-[63px] left-1/2 transform -translate-x-1/2 z-10">
+      <div className="w-[336px] flex justify-between absolute top-[73px] left-1/2 transform -translate-x-1/2 z-10">
         {days.map((dia, index) => (
           <div
             key={index}

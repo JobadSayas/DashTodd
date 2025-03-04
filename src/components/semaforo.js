@@ -1,25 +1,77 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const Semaforo = ({ dateTime }) => {  
+const Semaforo = ({ dateTime }) => {
   const [color, setColor] = useState("bg-green-400");
   const [semaforoImg, setSemaforoImg] = useState();
   const [minutosRestantes, setMinutosRestantes] = useState(null);
 
+  // Estado para almacenar los parámetros obtenidos de la API
+  const [horaDespertar, setHoraDespertar] = useState(7);
+  const [minutosDespertar, setMinutosDespertar] = useState(10);
+  const [horaDormir, setHoraDormir] = useState(19);
+  const [minutosDormir, setMinutosDormir] = useState(10);
+
+  const [duracionAntesDespertar, setDuracionAntesDespertar] = useState(15);
+  const [duracionAntesDormir, setDuracionAntesDormir] = useState(30);
+
+  // Función para hacer la llamada a la API y obtener los valores de la base de datos
+  const obtenerParametros = async () => {
+    try {
+      const response = await axios.get("https://dashtodd.visssible.com/backend/parameters.php");
+      if (response.data) {
+        const {
+          wakeUpHour,
+          wakeUpMinute,
+          wakeUpInterval,
+          sleepHour,
+          sleepMinute,
+          sleepInterval,
+        } = response.data;
+
+        // Actualizar los estados con los datos recibidos
+        setHoraDespertar(wakeUpHour);
+        setMinutosDespertar(wakeUpMinute);
+        setHoraDormir(sleepHour);
+        setMinutosDormir(sleepMinute);
+        setDuracionAntesDespertar(wakeUpInterval);
+        setDuracionAntesDormir(sleepInterval);
+      }
+    } catch (error) {
+      console.error("Error al obtener los parámetros:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Hacer la llamada inicial para obtener los parámetros de la API
+    obtenerParametros();
+
+    // Revisar la hora cada minuto y hacer la llamada cuando sea hora exacta
+    const intervalId = setInterval(() => {
+      const ahora = new Date();
+      const horas = ahora.getHours();
+      const minutos = ahora.getMinutes();
+
+      // Validar si la hora y los minutos son las horas exactas (12:00, 6:00, 12:00, 18:00)
+      if (
+        (horas === 0 && minutos === 0) ||
+        (horas === 6 && minutos === 0) ||
+        (horas === 12 && minutos === 0) ||
+        (horas === 18 && minutos === 0)
+      ) {
+        obtenerParametros(); // Llamar a la API a las horas deseadas
+      }
+    }, 60000); // Revisa cada minuto
+
+    // Limpiar el intervalo al desmontar el componente
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   useEffect(() => {
     const horas = dateTime.getHours();
     const minutos = dateTime.getMinutes();
-    // Simulación de valores para pruebas
-    // const horas = 7;  // Hardcodeado para pruebas
-    // const minutos = 10;  // Hardcodeado para pruebas
-
-    // Variables configurables
-    const horaDespertar = 7;
-    const minutosDespertar = 10;
-    const horaDormir = 19;
-    const minutosDormir = 10;
-
-    const duracionAntesDespertar = 15; // Minutos antes de despertar (amarillo)
-    const duracionAntesDormir = 30;    // Minutos antes de dormir (amarillo)
 
     // Calcular tiempos específicos
     const minutosAntesDespertar = minutosDespertar - duracionAntesDespertar;
@@ -68,7 +120,7 @@ const Semaforo = ({ dateTime }) => {
       setSemaforoImg("rojo");
       setMinutosRestantes(null);
     }
-  }, [dateTime]);  
+  }, [dateTime, horaDespertar, minutosDespertar, horaDormir, minutosDormir, duracionAntesDespertar, duracionAntesDormir]);
 
   const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo, horasActuales, minutosActuales) => {
     // Crear la fecha actual con la hora hardcodeada

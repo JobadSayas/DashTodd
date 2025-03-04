@@ -6,7 +6,7 @@ import Calendar from "./components/calendar";
 import axios from "axios";
 
 function App() {
-  const version = "9.5";
+  const version = "9.6";
   const [weatherData, setWeatherData] = useState({
     temperatura: null,
     airSpeed: 0,
@@ -41,7 +41,7 @@ function App() {
   };
 
   useEffect(() => {
-    obtenerClima();
+    // obtenerClima();
     const interval = setInterval(obtenerClima, 600000); // Actualizar cada 10 minutos
     return () => clearInterval(interval);
   }, []);

@@ -1,51 +1,70 @@
 import React, { useState, useEffect } from "react";
 
-const Semaforo = ({ dateTime }) => {  // Recibimos dateTime desde props
+const Semaforo = ({ dateTime }) => {  
   const [color, setColor] = useState("bg-green-400");
   const [semaforoImg, setSemaforoImg] = useState();
   const [minutosRestantes, setMinutosRestantes] = useState(null);
 
   useEffect(() => {
     const actualizarSemaforo = () => {
-      const horas = dateTime.getHours();  // Usamos la hora proveniente de dateTime
-      const minutos = dateTime.getMinutes();  // Usamos los minutos de dateTime
-      // const horas = 18;
-      // const minutos = 59;
+      // Simulación de valores para pruebas
+      const horas = dateTime.getHours();
+      const minutos = dateTime.getMinutes();
+      // const horas = 6;
+      // const minutos = 54;
 
+      // Variables configurables para despertar y dormir
       const horaDespertar = 7;
-      const minutosDespertar = 20;
+      const minutosDespertar = 10;
       const horaDormir = 19;
-      const minutosDormir = 20;
+      const minutosDormir = 10;
 
+      // Calcular tiempos específicos
+      const minutosAntesDespertar = minutosDespertar - 15; // 15 minutos antes de despertar
+      const minutosAntesDormir = minutosDormir - 30; // 30 minutos antes de dormir
 
-      if (//Antes de despetar (amarillo)
-        (horas === horaDespertar && minutos >= minutosDespertar - 15 && minutos < minutosDespertar) ||
-        (horas === horaDespertar - 1 && minutosDespertar < 15 && minutos >= minutosDespertar + 45)
+      // Asegurar que los minutos no sean negativos (cuando restamos minutos)
+      const horaAntesDespertar = minutosAntesDespertar < 0 ? horaDespertar - 1 : horaDespertar;
+      const minutosFinalAntesDespertar = (minutosAntesDespertar + 60) % 60;
+
+      const horaAntesDormir = minutosAntesDormir < 0 ? horaDormir - 1 : horaDormir;
+      const minutosFinalAntesDormir = (minutosAntesDormir + 60) % 60;
+
+      // **Condiciones**
+
+      // 🔶 Antes de despertar (Amarillo)
+      if (
+        (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar) ||
+        (horas === horaDespertar && minutos < minutosDespertar)
       ) {
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(horaDespertar, minutosDespertar); // Cuenta regresiva hasta las 7:30 AM
-      } else if ( //Despertar (verde)
-        (horas > horaDespertar && horas < horaDormir) || 
-        (horas === horaDespertar && minutos >= minutosDespertar) || 
-        (horas === horaDormir && minutos === minutosDormir)
+        iniciarCuentaRegresiva(horaDespertar, minutosDespertar);
+      } 
+      
+      // 🟢 Hora de despertar a 30 min antes de dormir (Verde)
+      else if (
+        (horas > horaDespertar && horas < horaAntesDormir) ||
+        (horas === horaDespertar && minutos >= minutosDespertar) ||
+        (horas === horaAntesDormir && minutos < minutosFinalAntesDormir)
       ) {
         setColor("bg-green-400");
         setSemaforoImg("verde");
         setMinutosRestantes(null);
-      } else if ( //Antes de dormir (amarillo)
-        (horas === horaDormir && minutos >= minutosDormir - 30 && minutos < minutosDormir) ||
-        (horas === horaDormir - 1 && minutosDormir < 30 && minutos >= minutosDormir + 30)
-      ) {
+      } 
       
+      // 🔶 Antes de dormir (Amarillo)
+      else if (
+        (horas === horaAntesDormir && minutos >= minutosFinalAntesDormir) ||
+        (horas === horaDormir && minutos < minutosDormir)
+      ) {
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(horaDormir, minutosDormir); // Cuenta regresiva hasta las 7:30 PM
-      } else if (
-        (horas === horaDormir && minutos >= minutosDormir) || 
-        (horas > horaDormir || horas < horaDespertar) || 
-        (horas === horaDespertar && minutos < minutosDespertar - 15)
-      ) {
+        iniciarCuentaRegresiva(horaDormir, minutosDormir);
+      } 
+      
+      // 🔴 Hora de dormir (Rojo)
+      else {
         setColor("bg-red-400");
         setSemaforoImg("rojo");
         setMinutosRestantes(null);
@@ -53,7 +72,7 @@ const Semaforo = ({ dateTime }) => {  // Recibimos dateTime desde props
     };
 
     const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo) => {
-      const ahora = dateTime; // Usamos dateTime para calcular la cuenta regresiva
+      const ahora = dateTime;
       const objetivo = new Date();
       objetivo.setHours(horaObjetivo, minutoObjetivo, 0, 0);
 
@@ -65,9 +84,9 @@ const Semaforo = ({ dateTime }) => {  // Recibimos dateTime desde props
       }
     };
 
-    actualizarSemaforo();  // Llamamos a la función de actualización del semáforo al renderizar el componente
+    actualizarSemaforo();  
 
-  }, [dateTime]);  // Reejecutamos cuando `dateTime` cambie
+  }, [dateTime]);  
 
   return (
     <div className={`relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0 justify-center ${color}`}>

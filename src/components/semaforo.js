@@ -7,13 +7,13 @@ const Semaforo = ({ dateTime }) => {
   const [minutosRestantes, setMinutosRestantes] = useState(null);
 
   // Estado para almacenar los parámetros obtenidos de la API
-  const [horaDespertar, setHoraDespertar] = useState(7);
-  const [minutosDespertar, setMinutosDespertar] = useState(10);
-  const [horaDormir, setHoraDormir] = useState(19);
-  const [minutosDormir, setMinutosDormir] = useState(10);
+  const [horaDespertar, setHoraDespertar] = useState();
+  const [minutosDespertar, setMinutosDespertar] = useState();
+  const [horaDormir, setHoraDormir] = useState();
+  const [minutosDormir, setMinutosDormir] = useState();
 
-  const [duracionAntesDespertar, setDuracionAntesDespertar] = useState(15);
-  const [duracionAntesDormir, setDuracionAntesDormir] = useState(30);
+  const [duracionAntesDespertar, setDuracionAntesDespertar] = useState();
+  const [duracionAntesDormir, setDuracionAntesDormir] = useState();
 
   // Función para hacer la llamada a la API y obtener los valores de la base de datos
   const obtenerParametros = async () => {

@@ -6,87 +6,89 @@ const Semaforo = ({ dateTime }) => {
   const [minutosRestantes, setMinutosRestantes] = useState(null);
 
   useEffect(() => {
-    const actualizarSemaforo = () => {
-      // Simulación de valores para pruebas
-      const horas = dateTime.getHours();
-      const minutos = dateTime.getMinutes();
-      // const horas = 6;
-      // const minutos = 54;
+    const horas = dateTime.getHours();
+    const minutos = dateTime.getMinutes();
+    // Simulación de valores para pruebas
+    // const horas = 7;  // Hardcodeado para pruebas
+    // const minutos = 10;  // Hardcodeado para pruebas
 
-      // Variables configurables para despertar y dormir
-      const horaDespertar = 7;
-      const minutosDespertar = 10;
-      const horaDormir = 19;
-      const minutosDormir = 10;
+    // Variables configurables
+    const horaDespertar = 7;
+    const minutosDespertar = 10;
+    const horaDormir = 19;
+    const minutosDormir = 10;
 
-      // Calcular tiempos específicos
-      const minutosAntesDespertar = minutosDespertar - 15; // 15 minutos antes de despertar
-      const minutosAntesDormir = minutosDormir - 30; // 30 minutos antes de dormir
+    const duracionAntesDespertar = 15; // Minutos antes de despertar (amarillo)
+    const duracionAntesDormir = 30;    // Minutos antes de dormir (amarillo)
 
-      // Asegurar que los minutos no sean negativos (cuando restamos minutos)
-      const horaAntesDespertar = minutosAntesDespertar < 0 ? horaDespertar - 1 : horaDespertar;
-      const minutosFinalAntesDespertar = (minutosAntesDespertar + 60) % 60;
+    // Calcular tiempos específicos
+    const minutosAntesDespertar = minutosDespertar - duracionAntesDespertar;
+    const minutosAntesDormir = minutosDormir - duracionAntesDormir;
 
-      const horaAntesDormir = minutosAntesDormir < 0 ? horaDormir - 1 : horaDormir;
-      const minutosFinalAntesDormir = (minutosAntesDormir + 60) % 60;
+    const horaAntesDespertar = minutosAntesDespertar < 0 ? horaDespertar - 1 : horaDespertar;
+    const minutosFinalAntesDespertar = (minutosAntesDespertar + 60) % 60;
 
-      // **Condiciones**
+    const horaAntesDormir = minutosAntesDormir < 0 ? horaDormir - 1 : horaDormir;
+    const minutosFinalAntesDormir = (minutosAntesDormir + 60) % 60;
 
-      // 🔶 Antes de despertar (Amarillo)
-      if (
-        (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar) ||
-        (horas === horaDespertar && minutos < minutosDespertar)
-      ) {
-        setColor("bg-yellow-400");
-        setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(horaDespertar, minutosDespertar);
-      } 
-      
-      // 🟢 Hora de despertar a 30 min antes de dormir (Verde)
-      else if (
-        (horas > horaDespertar && horas < horaAntesDormir) ||
-        (horas === horaDespertar && minutos >= minutosDespertar) ||
-        (horas === horaAntesDormir && minutos < minutosFinalAntesDormir)
-      ) {
-        setColor("bg-green-400");
-        setSemaforoImg("verde");
-        setMinutosRestantes(null);
-      } 
-      
-      // 🔶 Antes de dormir (Amarillo)
-      else if (
-        (horas === horaAntesDormir && minutos >= minutosFinalAntesDormir) ||
-        (horas === horaDormir && minutos < minutosDormir)
-      ) {
-        setColor("bg-yellow-400");
-        setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(horaDormir, minutosDormir);
-      } 
-      
-      // 🔴 Hora de dormir (Rojo)
-      else {
-        setColor("bg-red-400");
-        setSemaforoImg("rojo");
-        setMinutosRestantes(null);
-      }
-    };
-
-    const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo) => {
-      const ahora = dateTime;
-      const objetivo = new Date();
-      objetivo.setHours(horaObjetivo, minutoObjetivo, 0, 0);
-
-      const diferenciaMs = objetivo - ahora;
-      if (diferenciaMs > 0) {
-        setMinutosRestantes(Math.ceil(diferenciaMs / (1000 * 60)));
-      } else {
-        setMinutosRestantes(0);
-      }
-    };
-
-    actualizarSemaforo();  
-
+    // 🔶 Antes de despertar (Amarillo)
+    if (
+      (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar) ||
+      (horas === horaDespertar && minutos < minutosDespertar)
+    ) {
+      setColor("bg-yellow-400");
+      setSemaforoImg("amarillo");
+      iniciarCuentaRegresiva(horaDespertar, minutosDespertar, horas, minutos);
+    } 
+    
+    // 🟢 Hora de despertar hasta antes de dormir (Verde)
+    else if (
+      (horas > horaDespertar && horas < horaAntesDormir) ||
+      (horas === horaDespertar && minutos >= minutosDespertar) ||
+      (horas === horaAntesDormir && minutos < minutosFinalAntesDormir)
+    ) {
+      setColor("bg-green-400");
+      setSemaforoImg("verde");
+      setMinutosRestantes(null);
+    } 
+    
+    // 🔶 Antes de dormir (Amarillo)
+    else if (
+      (horas === horaAntesDormir && minutos >= minutosFinalAntesDormir) ||
+      (horas === horaDormir && minutos < minutosDormir)
+    ) {
+      setColor("bg-yellow-400");
+      setSemaforoImg("amarillo");
+      iniciarCuentaRegresiva(horaDormir, minutosDormir, horas, minutos);
+    } 
+    
+    // 🔴 Hora de dormir (Rojo)
+    else {
+      setColor("bg-red-400");
+      setSemaforoImg("rojo");
+      setMinutosRestantes(null);
+    }
   }, [dateTime]);  
+
+  const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo, horasActuales, minutosActuales) => {
+    // Crear la fecha actual con la hora hardcodeada
+    const ahora = new Date();
+    ahora.setHours(horasActuales);
+    ahora.setMinutes(minutosActuales);
+    ahora.setSeconds(0);
+    ahora.setMilliseconds(0);
+
+    // Crear la fecha objetivo
+    const objetivo = new Date(ahora);
+    objetivo.setHours(horaObjetivo);
+    objetivo.setMinutes(minutoObjetivo);
+
+    // Calcular la diferencia en minutos
+    const diferenciaMs = objetivo.getTime() - ahora.getTime();
+    const minutosRestantesCalculados = Math.max(0, Math.floor(diferenciaMs / (1000 * 60)));
+
+    setMinutosRestantes(minutosRestantesCalculados);
+  };
 
   return (
     <div className={`relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0 justify-center ${color}`}>

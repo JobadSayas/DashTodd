@@ -9,28 +9,43 @@ const Semaforo = ({ dateTime }) => {  // Recibimos dateTime desde props
     const actualizarSemaforo = () => {
       const horas = dateTime.getHours();  // Usamos la hora proveniente de dateTime
       const minutos = dateTime.getMinutes();  // Usamos los minutos de dateTime
+      // const horas = 18;
+      // const minutos = 59;
 
-      if (
-        (horas === 7 && minutos >= 15 && minutos < 30) // Amarillo entre 7:15 AM y 7:30 AM
+      const horaDespertar = 7;
+      const minutosDespertar = 20;
+      const horaDormir = 19;
+      const minutosDormir = 20;
+
+
+      if (//Antes de despetar (amarillo)
+        (horas === horaDespertar && minutos >= minutosDespertar - 15 && minutos < minutosDespertar) ||
+        (horas === horaDespertar - 1 && minutosDespertar < 15 && minutos >= minutosDespertar + 45)
       ) {
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(7, 30); // Cuenta regresiva hasta las 7:30 AM
-      } else if (
-        (horas > 7 && horas < 19) || // Desde las 8:00 AM hasta las 6:59 PM
-        (horas === 7 && minutos >= 30) || // Desde las 7:30 AM
-        (horas === 19 && minutos === 0) // Desde las 7:00 PM exactamente
+        iniciarCuentaRegresiva(horaDespertar, minutosDespertar); // Cuenta regresiva hasta las 7:30 AM
+      } else if ( //Despertar (verde)
+        (horas > horaDespertar && horas < horaDormir) || 
+        (horas === horaDespertar && minutos >= minutosDespertar) || 
+        (horas === horaDormir && minutos === minutosDormir)
       ) {
         setColor("bg-green-400");
         setSemaforoImg("verde");
         setMinutosRestantes(null);
-      } else if (
-        (horas === 19 && minutos >= 0 && minutos < 30) // Desde las 7:00 PM hasta las 7:29 PM
+      } else if ( //Antes de dormir (amarillo)
+        (horas === horaDormir && minutos >= minutosDormir - 30 && minutos < minutosDormir) ||
+        (horas === horaDormir - 1 && minutosDormir < 30 && minutos >= minutosDormir + 30)
       ) {
+      
         setColor("bg-yellow-400");
         setSemaforoImg("amarillo");
-        iniciarCuentaRegresiva(19, 30); // Cuenta regresiva hasta las 7:30 PM
-      } else {
+        iniciarCuentaRegresiva(horaDormir, minutosDormir); // Cuenta regresiva hasta las 7:30 PM
+      } else if (
+        (horas === horaDormir && minutos >= minutosDormir) || 
+        (horas > horaDormir || horas < horaDespertar) || 
+        (horas === horaDespertar && minutos < minutosDespertar - 15)
+      ) {
         setColor("bg-red-400");
         setSemaforoImg("rojo");
         setMinutosRestantes(null);

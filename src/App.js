@@ -6,7 +6,7 @@ import Calendar from "./components/calendar";
 import axios from "axios";
 
 function App() {
-  const version = "9.3";
+  const version = "9.5";
   const [weatherData, setWeatherData] = useState({
     temperatura: null,
     airSpeed: 0,

@@ -41,7 +41,7 @@ const Hour = ({ dateTime, weatherData }) => {  // Recibimos weatherData desde pr
         setColorTexto("text-black");
       } else if (horas >= 14 && horas < 17) {
         setImagenHora("tarde");
-        setColorFondo("bg-sky-300");
+        setColorFondo("bg-sky-400");
         setColorTexto("text-black");
       } else if (horas >= 17 && horas < 18) {
         setImagenHora("atardecer");

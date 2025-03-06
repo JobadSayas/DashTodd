@@ -6,7 +6,7 @@ import Calendar from "./components/calendar";
 import axios from "axios";
 
 function App() {
-  const version = "10.2";
+  const version = "10.3";
   const [weatherData, setWeatherData] = useState({
     temperatura: null,
     airSpeed: 0,
@@ -40,6 +40,7 @@ function App() {
     }
   };
 
+  //Comentar para desactivar clima on testing
   useEffect(() => {
     obtenerClima();
     const interval = setInterval(obtenerClima, 600000); // Actualizar cada 10 minutos
@@ -61,7 +62,7 @@ function App() {
   return (
     <div className="flex flex-col bg-white p-3 gap-2 justify-start relative w-[360px]">
 
-      <div className="text-white text-lg absolute top-[12px] left-[18px] z-10">{version}</div>
+      <div className="text-md absolute top-[12px] left-[18px] z-10">{version}</div>
 
       <Semaforo dateTime={dateTime} />
       <Hour weatherData={weatherData} dateTime={dateTime} />

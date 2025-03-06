@@ -11,6 +11,7 @@ const Semaforo = ({ dateTime }) => {
   const [minutosDespertar, setMinutosDespertar] = useState();
   const [horaDormir, setHoraDormir] = useState();
   const [minutosDormir, setMinutosDormir] = useState();
+  const [horario, setHorario] = useState();
 
   const [duracionAntesDespertar, setDuracionAntesDespertar] = useState();
   const [duracionAntesDormir, setDuracionAntesDormir] = useState();
@@ -30,12 +31,13 @@ const Semaforo = ({ dateTime }) => {
         } = response.data;
 
         // Actualizar los estados con los datos recibidos
-        setHoraDespertar(wakeUpHour);
-        setMinutosDespertar(wakeUpMinute);
-        setHoraDormir(sleepHour);
-        setMinutosDormir(sleepMinute);
-        setDuracionAntesDespertar(wakeUpInterval);
-        setDuracionAntesDormir(sleepInterval);
+        setHoraDespertar(parseInt(wakeUpHour, 10));
+        setMinutosDespertar(parseInt(wakeUpMinute, 10));
+        setHoraDormir(parseInt(sleepHour, 10));
+        setMinutosDormir(parseInt(sleepMinute, 10));
+        setDuracionAntesDespertar(parseInt(wakeUpInterval, 10));
+        setDuracionAntesDormir(parseInt(sleepInterval, 10));
+
       }
     } catch (error) {
       console.error("Error al obtener los parámetros:", error);
@@ -85,24 +87,24 @@ const Semaforo = ({ dateTime }) => {
 
     // 🔶 Antes de despertar (Amarillo)
     if (
-      (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar) ||
+      (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar && minutos < 60) ||
       (horas === horaDespertar && minutos < minutosDespertar)
     ) {
       setColor("bg-yellow-400");
       setSemaforoImg("amarillo");
       iniciarCuentaRegresiva(horaDespertar, minutosDespertar, horas, minutos);
-    } 
-    
+    }
+
     // 🟢 Hora de despertar hasta antes de dormir (Verde)
     else if (
       (horas > horaDespertar && horas < horaAntesDormir) ||
-      (horas === horaDespertar && minutos >= minutosDespertar) ||
+      (horas === horaDespertar && minutos >= minutosDespertar) || // ← Esto debe activarse correctamente
       (horas === horaAntesDormir && minutos < minutosFinalAntesDormir)
     ) {
       setColor("bg-green-400");
       setSemaforoImg("verde");
       setMinutosRestantes(null);
-    } 
+    }
     
     // 🔶 Antes de dormir (Amarillo)
     else if (
@@ -121,6 +123,15 @@ const Semaforo = ({ dateTime }) => {
       setMinutosRestantes(null);
     }
   }, [dateTime, horaDespertar, minutosDespertar, horaDormir, minutosDormir, duracionAntesDespertar, duracionAntesDormir]);
+
+
+  // Nuevo useEffect para actualizar 'horario' después de que los estados se actualicen
+  useEffect(() => {
+    if (horaDespertar !== undefined && minutosDespertar !== undefined && horaDormir !== undefined && minutosDormir !== undefined) {
+      setHorario(`${horaDespertar}:${String(minutosDespertar).padStart(2, "0")} - ${horaDormir}:${String(minutosDormir).padStart(2, "0")}`);
+    }
+  }, [horaDespertar, minutosDespertar, horaDormir, minutosDormir]);
+
 
   const iniciarCuentaRegresiva = (horaObjetivo, minutoObjetivo, horasActuales, minutosActuales) => {
     // Crear la fecha actual con la hora hardcodeada
@@ -152,6 +163,7 @@ const Semaforo = ({ dateTime }) => {
           </div>
         )}
       </div>
+      <span className="absolute bottom-[3px] text-xs">{horario}</span>
     </div>
   );
 };

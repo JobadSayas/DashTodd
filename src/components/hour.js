@@ -11,6 +11,11 @@ const Hour = ({ dateTime, weatherData }) => {  // Recibimos weatherData desde pr
     const actualizarHora = () => {
       const horas = dateTime.getHours(); // Usamos la hora proveniente de dateTime
       const minutos = dateTime.getMinutes(); // Usamos los minutos de dateTime
+      
+      //Hardcode time
+      // const horas = 18;
+      // const minutos = 30;
+
       const formatoHoras = horas % 12 || 12; // Convertir a formato 12 horas
       const formatoMinutos = String(minutos).padStart(2, "0"); // Agregar ceros si es necesario
       const ampm = horas >= 12 ? "PM" : "AM"; // Determinar AM o PM
@@ -41,11 +46,11 @@ const Hour = ({ dateTime, weatherData }) => {  // Recibimos weatherData desde pr
         setColorTexto("text-black");
       } else if (horas >= 14 && horas < 17) {
         setImagenHora("tarde");
-        setColorFondo("bg-sky-400");
+        setColorFondo("bg-sky-300");
         setColorTexto("text-black");
       } else if (horas >= 17 && horas < 18) {
         setImagenHora("atardecer");
-        setColorFondo("bg-orange-300");
+        setColorFondo("bg-orange-400");
         setColorTexto("text-black");
       } else {
         setImagenHora("noche");

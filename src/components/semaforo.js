@@ -50,30 +50,35 @@ const Semaforo = ({ dateTime }) => {
 
     // Revisar la hora cada minuto y hacer la llamada cuando sea hora exacta
     const intervalId = setInterval(() => {
+
       const ahora = new Date();
       const horas = ahora.getHours();
       const minutos = ahora.getMinutes();
 
-      // Validar si la hora y los minutos son las horas exactas (12:00, 6:00, 12:00, 18:00)
-      if (
-        (horas === 0 && minutos === 0) ||
-        (horas === 6 && minutos === 0) ||
-        (horas === 12 && minutos === 0) ||
-        (horas === 18 && minutos === 0)
-      ) {
-        obtenerParametros(); // Llamar a la API a las horas deseadas
-      }
+        // Validar si la hora y los minutos son las horas exactas (12:00, 6:00, 12:00, 18:00)
+        if (
+          (horas === 0 && minutos === 0) ||
+          (horas === 6 && minutos === 0) ||
+          (horas === 12 && minutos === 0) ||
+          (horas === 18 && minutos === 0)
+        ) {
+          obtenerParametros(); // Llamar a la API a las horas deseadas
+        }
     }, 60000); // Revisa cada minuto
 
     // Limpiar el intervalo al desmontar el componente
     return () => {
       clearInterval(intervalId);
     };
+
   }, []);
 
   useEffect(() => {
-    const horas = dateTime.getHours();
-    const minutos = dateTime.getMinutes();
+    // const horas = dateTime.getHours();
+    // const minutos = dateTime.getMinutes();
+    
+    const horas = 18;
+    const minutos = 9;
 
     // Calcular tiempos específicos
     const minutosAntesDespertar = minutosDespertar - duracionAntesDespertar;
@@ -115,13 +120,16 @@ const Semaforo = ({ dateTime }) => {
       setSemaforoImg("amarillo");
       iniciarCuentaRegresiva(horaDormir, minutosDormir, horas, minutos);
     } 
-    
-    // 🔴 Hora de dormir (Rojo)
-    else {
+
+    // 🔴 Hora de dormir (Rojo) - Se activa exactamente a la hora de dormir o después
+    if (horas > horaDormir || (horas === horaDormir && minutos >= minutosDormir)) {
       setColor("bg-red-400");
       setSemaforoImg("rojo");
       setMinutosRestantes(null);
     }
+
+
+
   }, [dateTime, horaDespertar, minutosDespertar, horaDormir, minutosDormir, duracionAntesDespertar, duracionAntesDormir]);
 
 

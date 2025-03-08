@@ -73,65 +73,61 @@ const Semaforo = ({ dateTime }) => {
 
   }, []);
 
+
   useEffect(() => {
-    const horas = dateTime.getHours();
-    const minutos = dateTime.getMinutes();
-    
-    //Hardcode time
-    // const horas = 18;
-    // const minutos = 9;
+    // Obtener la hora y minutos actuales de dateTime (que viene de las props)
+    // const horas = dateTime.getHours();
+    // const minutos = dateTime.getMinutes();
+    const horas = 6;
+    const minutos = 40;
 
-    // Calcular tiempos específicos
-    const minutosAntesDespertar = minutosDespertar - duracionAntesDespertar;
-    const minutosAntesDormir = minutosDormir - duracionAntesDormir;
+    // Calculamos los tiempos importantes
+    const tiempoActual = horas * 60 + minutos; // Convertimos la hora actual a minutos
+    const tiempoDespertar = horaDespertar * 60 + minutosDespertar; // Convertimos la hora de despertar a minutos
+    const tiempoDormir = horaDormir * 60 + minutosDormir; // Convertimos la hora de dormir a minutos
 
-    const horaAntesDespertar = minutosAntesDespertar < 0 ? horaDespertar - 1 : horaDespertar;
-    const minutosFinalAntesDespertar = (minutosAntesDespertar + 60) % 60;
-
-    const horaAntesDormir = minutosAntesDormir < 0 ? horaDormir - 1 : horaDormir;
-    const minutosFinalAntesDormir = (minutosAntesDormir + 60) % 60;
-
-    // 🔶 Antes de despertar (Amarillo)
+    // Validaciones
     if (
-      (horas === horaAntesDespertar && minutos >= minutosFinalAntesDespertar && minutos < 60) ||
-      (horas === horaDespertar && minutos < minutosDespertar)
+      // 🔴 De 0 horas a 15 minutos antes de despertar (luz roja)
+      tiempoActual >= tiempoDormir ||
+      tiempoActual < tiempoDespertar - duracionAntesDespertar
     ) {
-      setColor("bg-yellow-400");
-      setSemaforoImg("amarillo");
+      setColor("bg-red-400"); // Cambiar a rojo
+      setSemaforoImg("rojo"); // Cambiar la imagen del semáforo a rojo
+    } else if (
+      // 🔶 De 15 minutos antes de despertar y hasta la hora de despertar (luz amarilla)
+      tiempoActual >= tiempoDespertar - duracionAntesDespertar &&
+      tiempoActual < tiempoDespertar
+    ) {
+      setColor("bg-yellow-400"); // Cambiar a amarillo
+      setSemaforoImg("amarillo"); // Cambiar la imagen del semáforo a amarillo
       iniciarCuentaRegresiva(horaDespertar, minutosDespertar, horas, minutos);
-    }
-
-    // 🟢 Hora de despertar hasta antes de dormir (Verde)
-    else if (
-      (horas > horaDespertar && horas < horaAntesDormir) ||
-      (horas === horaDespertar && minutos >= minutosDespertar) || // ← Esto debe activarse correctamente
-      (horas === horaAntesDormir && minutos < minutosFinalAntesDormir)
+    } else if (
+      // 🟢 De la hora de despertar y hasta 30 minutos antes de dormir (luz verde)
+      tiempoActual >= tiempoDespertar &&
+      tiempoActual < tiempoDormir - duracionAntesDormir
     ) {
-      setColor("bg-green-400");
-      setSemaforoImg("verde");
-      setMinutosRestantes(null);
-    }
-    
-    // 🔶 Antes de dormir (Amarillo)
-    else if (
-      (horas === horaAntesDormir && minutos >= minutosFinalAntesDormir) ||
-      (horas === horaDormir && minutos < minutosDormir)
+      setColor("bg-green-400"); // Cambiar a verde
+      setSemaforoImg("verde"); // Cambiar la imagen del semáforo a verde
+    } else if (
+      // 🔶 De 30 minutos antes de dormir a la hora de dormir (luz amarilla)
+      tiempoActual >= tiempoDormir - duracionAntesDormir &&
+      tiempoActual < tiempoDormir
     ) {
-      setColor("bg-yellow-400");
-      setSemaforoImg("amarillo");
+      setColor("bg-yellow-400"); // Cambiar a amarillo
+      setSemaforoImg("amarillo"); // Cambiar la imagen del semáforo a amarillo
       iniciarCuentaRegresiva(horaDormir, minutosDormir, horas, minutos);
-    } 
-
-    // 🔴 Hora de dormir (Rojo) - Se activa exactamente a la hora de dormir o después
-    if (horas > horaDormir || (horas === horaDormir && minutos >= minutosDormir)) {
-      setColor("bg-red-400");
-      setSemaforoImg("rojo");
-      setMinutosRestantes(null);
+    } else if (
+      // 🔴 De la hora de dormir en adelante (luz roja)
+      tiempoActual >= tiempoDormir
+    ) {
+      setColor("bg-red-400"); // Cambiar a rojo
+      setSemaforoImg("rojo"); // Cambiar la imagen del semáforo a rojo
     }
 
-
-
-  }, [dateTime, horaDespertar, minutosDespertar, horaDormir, minutosDormir, duracionAntesDespertar, duracionAntesDormir]);
+    // Iniciar la cuenta regresiva si es necesario
+    iniciarCuentaRegresiva(horaDespertar, minutosDespertar, horas, minutos);
+  }, [dateTime]); // Este efecto se ejecuta cada vez que dateTime cambia
 
 
   // Nuevo useEffect para actualizar 'horario' después de que los estados se actualicen

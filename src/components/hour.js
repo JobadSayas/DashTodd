@@ -28,27 +28,27 @@ const Hour = ({ dateTime, weatherData }) => {  // Recibimos weatherData desde pr
         setImagenHora("noche");
         setColorFondo("bg-indigo-900");
         setColorTexto("text-white");
-      } else if (horas >= 6 && horas < 7) {
+      } else if (horas >= 7 && horas < 8) {
         setImagenHora("crepusculo");
         setColorFondo("bg-indigo-900");
         setColorTexto("text-white");
-      } else if (horas >= 7 && horas < 8) {
+      } else if (horas >= 8 && horas < 9) {
         setImagenHora("amanecer");
         setColorFondo("bg-blue-500");
         setColorTexto("text-black");
-      } else if (horas >= 8 && horas < 11) {
+      } else if (horas >= 9 && horas < 12) {
         setImagenHora("manana");
         setColorFondo("bg-sky-300");
         setColorTexto("text-black");
-      } else if (horas >= 11 && horas < 14) {
+      } else if (horas >= 12 && horas < 15) {
         setImagenHora("medio-dia");
         setColorFondo("bg-sky-300");
         setColorTexto("text-black");
-      } else if (horas >= 14 && horas < 17) {
+      } else if (horas >= 15 && horas < 18) {
         setImagenHora("tarde");
         setColorFondo("bg-sky-300");
         setColorTexto("text-black");
-      } else if (horas >= 17 && horas < 18) {
+      } else if (horas >= 18 && horas < 19) {
         setImagenHora("atardecer");
         setColorFondo("bg-orange-400");
         setColorTexto("text-black");

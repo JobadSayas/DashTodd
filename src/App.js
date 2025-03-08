@@ -6,7 +6,7 @@ import Calendar from "./components/calendar";
 import axios from "axios";
 
 function App() {
-  const version = "10.5";
+  const version = "10.6";
   const [weatherData, setWeatherData] = useState({
     temperatura: null,
     airSpeed: 0,
@@ -41,11 +41,11 @@ function App() {
   };
 
   //Comentar para desactivar clima on testing
-  // useEffect(() => {
-  //   obtenerClima();
-  //   const interval = setInterval(obtenerClima, 600000); // Actualizar cada 10 minutos
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    obtenerClima();
+    const interval = setInterval(obtenerClima, 600000); // Actualizar cada 10 minutos
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const actualizarHora = () => {

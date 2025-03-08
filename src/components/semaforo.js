@@ -74,11 +74,12 @@ const Semaforo = ({ dateTime }) => {
   }, []);
 
   useEffect(() => {
-    // const horas = dateTime.getHours();
-    // const minutos = dateTime.getMinutes();
+    const horas = dateTime.getHours();
+    const minutos = dateTime.getMinutes();
     
-    const horas = 18;
-    const minutos = 9;
+    //Hardcode time
+    // const horas = 18;
+    // const minutos = 9;
 
     // Calcular tiempos específicos
     const minutosAntesDespertar = minutosDespertar - duracionAntesDespertar;

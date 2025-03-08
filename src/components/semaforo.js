@@ -76,10 +76,34 @@ const Semaforo = ({ dateTime }) => {
 
   useEffect(() => {
     // Obtener la hora y minutos actuales de dateTime (que viene de las props)
-    // const horas = dateTime.getHours();
-    // const minutos = dateTime.getMinutes();
-    const horas = 6;
-    const minutos = 40;
+    
+    const horas = dateTime.getHours(); const minutos = dateTime.getMinutes();
+    
+    // 5:00 rojo
+    // const horas = 5; const minutos = 0;
+    // 6:24 rojo
+    // const horas = 6; const minutos = 24;
+    // 6:25 amarillo
+    // const horas = 6; const minutos = 25;
+    // 6:39 amarillo
+    // const horas = 6; const minutos = 39;
+    // 6:40 verde
+    // const horas = 6; const minutos = 40;
+    // 9:53 verde 
+    // const horas = 9; const minutos = 53;
+    // 18:09 verde
+    // const horas = 18; const minutos = 9;
+    // 18:10 amarillo
+    // const horas = 18; const minutos = 10;
+    // 18:39 amarillo
+    // const horas = 18; const minutos = 39;
+    // 18:40 rojo
+    // const horas = 18; const minutos = 40;
+    // 19:00 rojo
+    // const horas = 19; const minutos = 0;
+    // 23:59 rojo
+    // const horas = 23; const minutos = 59;
+
 
     // Calculamos los tiempos importantes
     const tiempoActual = horas * 60 + minutos; // Convertimos la hora actual a minutos
@@ -125,8 +149,6 @@ const Semaforo = ({ dateTime }) => {
       setSemaforoImg("rojo"); // Cambiar la imagen del semáforo a rojo
     }
 
-    // Iniciar la cuenta regresiva si es necesario
-    iniciarCuentaRegresiva(horaDespertar, minutosDespertar, horas, minutos);
   }, [dateTime]); // Este efecto se ejecuta cada vez que dateTime cambia
 
 
@@ -162,15 +184,18 @@ const Semaforo = ({ dateTime }) => {
     <div className={`relative rounded-lg w-full h-[113px] flex bg-center bg-no-repeat bg-contain flex-shrink-0 justify-center ${color}`}>
       <div className="flex items-center">
         <img src={`/img/${semaforoImg}.jpg`} alt="Semáforo" className="h-full w-auto mx-auto my-auto" />
-        {minutosRestantes !== null && (
+
+        {color === "bg-yellow-400" && minutosRestantes !== null && (
           <div className="font-bold text-5xl ml-[18px] w-[53px] text-center">
             {String(minutosRestantes).padStart(2, "0")}
           </div>
         )}
+
       </div>
       <span className="absolute bottom-[3px] text-xs">{horario}</span>
     </div>
   );
+  
 };
 
 export default Semaforo;

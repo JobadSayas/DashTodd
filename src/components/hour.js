@@ -28,15 +28,15 @@ const Hour = ({ dateTime, weatherData }) => {  // Recibimos weatherData desde pr
         setImagenHora("noche");
         setColorFondo("bg-indigo-900");
         setColorTexto("text-white");
-      } else if (horas >= 7 && horas < 8) {
+      } else if (horas >= 6 && horas < 7) {
         setImagenHora("crepusculo");
         setColorFondo("bg-indigo-900");
         setColorTexto("text-white");
-      } else if (horas >= 8 && horas < 9) {
+      } else if (horas >= 7 && horas < 8) {
         setImagenHora("amanecer");
         setColorFondo("bg-blue-500");
         setColorTexto("text-black");
-      } else if (horas >= 9 && horas < 12) {
+      } else if (horas >= 8 && horas < 12) {
         setImagenHora("manana");
         setColorFondo("bg-sky-300");
         setColorTexto("text-black");

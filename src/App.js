@@ -6,15 +6,14 @@ import Calendar from "./components/calendar";
 import axios from "axios";
 
 function App() {
-  const version = "11.2";
+  const version = "11.3";
   const [weatherData, setWeatherData] = useState({
     temperatura: null,
     airSpeed: 0,
     icon: null,
   });
-  const [dateTime, setDateTime] = useState(new Date()); // Estado centralizado para la hora y fecha
+  const [dateTime, setDateTime] = useState(new Date());
 
-  // Función para obtener datos del clima
   const obtenerClima = async () => {
     const apiKey = "MJKZY85NQXXSP4NGC69T62JS9";
     const ciudad = "Bentonville,AR";
@@ -28,7 +27,7 @@ function App() {
       let windSpeed = Math.round(datos.currentConditions.windspeed);
       let weatherIcon = datos.currentConditions.icon;
 
-      temp = Math.max(0, Math.min(temp, 100)); // Limitar temperatura entre 0 y 100
+      temp = Math.max(0, Math.min(temp, 100));
 
       setWeatherData({
         temperatura: temp,
@@ -40,24 +39,26 @@ function App() {
     }
   };
 
-  //Comentar para desactivar clima on testing
   useEffect(() => {
     obtenerClima();
-    const interval = setInterval(obtenerClima, 600000); // Actualizar cada 10 minutos
+    const interval = setInterval(obtenerClima, 600000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const actualizarHora = () => {
-      setDateTime(new Date()); // Actualiza la fecha y hora
+      setDateTime(new Date());
     };
 
-    const interval = setInterval(actualizarHora, 1000); // Actualiza cada segundo
+    const interval = setInterval(actualizarHora, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Cortina basada en la hora actual
-  const mostrarCortina = dateTime.getHours() >= 22 || dateTime.getHours() < 6;
+  // Cortina negra basada en la hora (noche)
+  const mostrarCortinaNegra = dateTime.getHours() >= 22 || dateTime.getHours() < 6;
+  
+  // Cortina azul basada en la temperatura (39° o menos)
+  const mostrarCortinaAzul = weatherData.temperatura !== null && weatherData.temperatura <= 39;
 
   return (
     <div className="flex flex-col bg-white p-3 gap-2 justify-start relative w-[360px]">
@@ -69,9 +70,16 @@ function App() {
       <Weather weatherData={weatherData} />
       <Calendar dateTime={dateTime} />
 
-      {mostrarCortina && (
-        <div className="absolute top-0 left-0 w-screen h-screen z-20 bg-black"></div>
+      {/* Cortina negra - se muestra solo de noche */}
+      {mostrarCortinaNegra && (
+        <div className="absolute top-0 left-0 w-screen h-screen z-30 bg-black"></div>
       )}
+
+      {/* Cortina azul - se muestra solo cuando temperatura <= 39° */}
+      {mostrarCortinaAzul && (
+        <div className="absolute top-0 left-0 w-full h-full z-20 bg-[url('/img/ice.png')] bg-cover bg-center bg-no-repeat"></div>
+      )}
+
     </div>
   );
 }

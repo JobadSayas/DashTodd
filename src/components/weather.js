@@ -1,25 +1,31 @@
-import { useEffect, useRef } from "react";
+// src/components/weather.js
+import { useEffect, useState } from "react";
 
 const Weather = ({ weatherData }) => {
   const { temperatura, airSpeed, icon } = weatherData;
-  const angleRef = useRef(0); // Mantiene el ángulo acumulado
+  const [angle, setAngle] = useState(0);
 
-  // Rotar el ventilador según la velocidad del aire
+  // 1. Rotación declarativa: Ya no buscamos el ID "fan"
   useEffect(() => {
-    const rotateFan = () => {
-      angleRef.current = (angleRef.current + airSpeed) % 360;
-      document.getElementById("fan").style.transform = `rotate(${angleRef.current}deg)`;
-    };
+    // Si no hay viento, no gastamos recursos en el intervalo
+    if (airSpeed === 0) return;
 
-    const interval = setInterval(rotateFan, 30);
+    const interval = setInterval(() => {
+      // Actualizamos el estado del ángulo. 
+      // Usamos la función de actualización (prev) para asegurar precisión.
+      setAngle((prevAngle) => (prevAngle + airSpeed) % 360);
+    }, 30);
+
     return () => clearInterval(interval);
   }, [airSpeed]);
 
-  // Calcular posición del termómetro
+  // 2. Cálculo de posición del termómetro (Declarativo)
   const leftValue = temperatura !== null ? (temperatura / 100) * 220 : 0;
 
   return (
     <div className="relative rounded-lg w-full h-[113px] flex gap-1 justify-center bg-purple-300 overflow-hidden">
+      
+      {/* Sección del termómetro */}
       <div className="w-[260px] bg-center bg-no-repeat bg-contain pt-[15px] bg-[url('/img/clima.jpg')]">
         <div className="w-[260px] h-[55px] relative">
           <span
@@ -31,18 +37,27 @@ const Weather = ({ weatherData }) => {
         </div>
       </div>
 
-      {/* Imagen del ventilador girando */}
+      {/* 3. El Ventilador: Ahora React tiene el control total */}
       <img
-        id="fan"
         src="/img/fan.svg"
         alt="Fan"
         className="w-[60px]"
+        style={{ transform: `rotate(${angle}deg)` }} // <-- Style Binding
       />
 
       {/* Velocidad del viento */}
       <div className="text-white text-md absolute top-[42px] right-[22px] z-10 bg-black w-7 h-7 rounded-full border-purple-300 border-[2px] flex items-center justify-center">
         {airSpeed ?? "--"}
       </div>
+      
+      {/* Bonus: Icono de clima si lo necesitas usar después */}
+      {icon && (
+        <img 
+          src={`/img/icons/${icon}.svg`} 
+          className="absolute top-2 right-2 w-8 opacity-50" 
+          alt="clima icon"
+        />
+      )}
     </div>
   );
 };
